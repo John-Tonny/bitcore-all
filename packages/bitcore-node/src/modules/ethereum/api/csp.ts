@@ -6,7 +6,8 @@ import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { Transaction } from 'web3/eth/types';
 import Config from '../../../config';
-import logger from '../../../logger';
+import logger  from '../../../logger';
+import { timestamp } from '../../../logger';
 import { MongoBound } from '../../../models/base';
 import { ITransaction } from '../../../models/baseTransaction';
 import { CacheStorage } from '../../../models/cache';
@@ -488,8 +489,43 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
           throw err;
         }
       }
-	
+
+      // var url = "mongodb://localhost:27017/";
+
+      // var db = await MongoClient.connect(url, { useNewUrlParser: true });
+      // var dbo = db.db("bitcore");
+
+      var filters = {
+        $or: [
+          { "chain":chain, "network":network, "from": { $in: addressBatch } },
+          { "chain":chain, "network":network, "to": { $in: addressBatch }  },
+          { "chain":chain, "network":network, 'internal.action.to': { $in: addressBatch.map(address => address.toLowerCase()) }  }
+        ]
+      };
+
+      var ethTransaction = EthTransactionStorage.collection;
+      // var walletAddress = WalletAddressStorage.collection;
+
+      logger.info(`${timestamp()} | 'start update wallet'`);
+      // await dbo.collection("transactions")
+      await ethTransaction.updateMany(filters,
+          { $addToSet: { wallets: params.wallet._id } }
+      );
+
       /*
+      var t2 = new Date().getTime();
+      console.log("####### stop update wallet ###########", t2 - t1);
+
+      // await dbo.collection("walletaddresses")
+      await walletAddress.updateMany(
+          { chain, network, address: { $in: addressBatch }, wallet: params.wallet._id },
+          { $set: { processed: true } }
+      );
+      var t3 = new Date().getTime();
+      console.log("####### end update wallet ###########", t3 - t2);
+
+
+
       var t1 = new Date().getTime();
       console.log("####### start update wallet ###########");
       await EthTransactionStorage.collection.updateMany(
@@ -503,17 +539,14 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
         },
         { $addToSet: { wallets: params.wallet._id } }
       );
-
-      var t2 = new Date().getTime();
-      console.log("####### stop update wallet ###########", t2 - t1);
+      */
+      logger.info(`${timestamp()} | 'stop update wallet'`);
 
       await WalletAddressStorage.collection.updateMany(
         { chain, network, address: { $in: addressBatch }, wallet: params.wallet._id },
         { $set: { processed: true } }
       );
-      var t3 = new Date().getTime();
-      console.log("####### end update wallet ###########", t3 - t2);
-      */
+      logger.info(`${timestamp()} | 'end update wallet'`);
     }
   }
 
