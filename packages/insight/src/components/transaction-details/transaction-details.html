@@ -78,9 +78,9 @@
               <b>Unlocking Script</b>
             </p>
             <div *ngFor="let item of vin.items">
-              <div *ngIf="item.scriptSig">
+              <div *ngIf="item.script">
                 <div class="unlocking-script">
-                  <p>{{ item.scriptSig.asm }}
+                  <p>{{ item.script }}
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@
             <div class="ellipsis">
               <p>
                 <a [ngClass]="{'disabled-link': getAddress(vout) === 'Unparsed address' }"
-                  (click)="goToAddress(vout.address)">{{ getAddress(vout) }}</a>
+                  (click)="goToAddress(vout.address)">{{ getAddressInfo(vout) }}</a>
               </p>
             </div>
             <div *ngIf="expanded">
@@ -125,7 +125,7 @@
                 <b>Locking Script</b>
               </p>
               <div class="locking-script">
-                <p>{{ vout.script.asm }}</p>
+                <p>{{ vout.script }}</p>
               </div>
             </div>
           </div>
