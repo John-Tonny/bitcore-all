@@ -758,7 +758,7 @@ export class WalletService {
         }
       ],
       err => {
-        if (err) return cb(err);
+        if(err) {return cb(err)};
         return cb(null, status);
       }
     );
@@ -4477,7 +4477,7 @@ export class WalletService {
     });
   }
 
-  // john
+  // john masternode
   getMasternodeCollateral(opts, cb) {
     opts = opts || {};
 

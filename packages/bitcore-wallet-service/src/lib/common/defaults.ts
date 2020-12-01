@@ -252,7 +252,7 @@ module.exports = {
     btc: 0.05 * 1e8,
     bch: 0.05 * 1e8,
     eth: 1 * 1e18, // 1 eth
-    vcl: 0.05 * 1e8,
+    vcl: 1 * 1e8,
     xrp: 1 * 1e6 // 1 xrp
   },
 
@@ -261,5 +261,9 @@ module.exports = {
   MIN_GAS_LIMIT: 21000,
 
   // XRP has a non-refundable mininum activation fee / balance
-  MIN_XRP_BALANCE: 20000000
+  MIN_XRP_BALANCE: 20000000,
+
+  // john
+  //  Coinbase transaction outputs can only be spent after this number of new blocks (network rule)
+  COINBASE_MATURITY_VCL: 100
 };

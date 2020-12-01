@@ -152,6 +152,7 @@ export class V8 {
       _.reject(unspent, x => {
         return x.spentHeight && x.spentHeight <= -3;
       }),
+      // john
       x => {
         const u = {
           address: x.address,
@@ -161,6 +162,7 @@ export class V8 {
           txid: x.mintTxid,
           vout: x.mintIndex,
           locked: false,
+          coinbase: x.coinbase,
           confirmations: x.mintHeight > 0 && bcheight >= x.mintHeight ? bcheight - x.mintHeight + 1 : 0
         };
 

@@ -1293,7 +1293,7 @@ export class ExpressApp {
       });
     });
 
-    // john
+    // john masternode
     router.get('/v1/masternode/collateral/', (req, res) => {
       getServerWithAuth(req, res, server => {
         const opts: { coin?: string } = {};
@@ -1363,6 +1363,28 @@ export class ExpressApp {
         server.removeMasternodes(opts, (err, ret) => {
           if (err) return returnError(err, res, req);
           res.json(ret);
+        });
+      });
+    });
+
+    // john asset
+    router.post('/v1/txassets/', (req, res) => {
+      getServerWithAuth(req, res, server => {
+        req.body.txpVersion = 3;
+        server.createTxAsset(req.body, (err, txp) => {
+          if (err) return returnError(err, res, req);
+          res.json(txp);
+        });
+      });
+    });
+
+    router.post('/v1/txassets/:id/publish/', (req, res) => {
+      getServerWithAuth(req, res, server => {
+        req.body.txProposalId = req.params['id'];
+        server.publishTxAsset(req.body, (err, txp) => {
+          if (err) return returnError(err, res, req);
+          res.json(txp);
+          res.end();
         });
       });
     });
