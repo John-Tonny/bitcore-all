@@ -26,7 +26,8 @@ export class VclChain implements IChain {
     server.getUtxosForCurrentWallet(
       {
         coin: opts.coin,
-        addresses: opts.addresses
+        addresses: opts.addresses,
+        excludeMasternode: opts.excludeMasternode   // john
       },
       (err, utxos) => {
         if (err) return cb(err);
@@ -658,7 +659,7 @@ export class VclChain implements IChain {
       // john
       utxos = _.filter(utxos, x => {
         return (x.coinbase && x.confirmations >= Defaults.COINBASE_MATURITY_VCL) || (!x.coinbase);
-      })
+      });
       utxos = sanitizeUtxos(utxos);
 
       // logger.debug('Considering ' + utxos.length + ' utxos (' + Utils.formatUtxos(utxos) + ')');

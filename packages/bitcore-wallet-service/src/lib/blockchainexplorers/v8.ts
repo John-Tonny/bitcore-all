@@ -502,7 +502,7 @@ export class V8 {
           const res = _.map(ret, 'txid');
           return cb(null, res);
         } catch (err) {
-          return cb(new Error('Could not get height from block explorer'));
+          return cb(new Error('Could not get txid from block explorer'));
         }
       })
       .catch(cb);
@@ -518,7 +518,7 @@ export class V8 {
             ret = JSON.parse(ret);
             return cb(null, ret[0].blockHeight, ret[0].blockHash);
           } catch (err) {
-            return cb(new Error('Could not get height from block explorer'));
+            return cb(new Error('Could not get blockHeight from block explorer'));
           }
         })
         .catch(cb);
@@ -541,7 +541,7 @@ export class V8 {
             ret = JSON.parse(ret);
             return cb(null, ret);
           } catch (err) {
-            return cb(new Error('Could not get height from block explorer'));
+            return cb(new Error('Could not get masternodeStatus from block explorer'));
           }
         })
         .catch(cb);
