@@ -1844,4 +1844,34 @@ export class Storage {
     );
   }
 
+  async _completeTxDataAsync(walletId, txs) {
+    var {err, wallet} = await this.fetchWalletAsync(walletId);
+    if (err) return {err};
+    _.each([].concat(txs), tx => {
+      tx.derivationStrategy = wallet.derivationStrategy || 'BIP45';
+      tx.creatorName = wallet.getCopayer(tx.creatorId).name;
+      _.each(tx.actions, action => {
+        action.copayerName = wallet.getCopayer(action.copayerId).name;
+      });
+
+      if (tx.status == 'accepted') tx.raw = tx.getRawTx();
+    });
+    return {'err':null, 'txs': txs};
+  }
+
+  async fetchWalletAsync(id) {
+    if (!this.db) return  {'err': 'not ready'};
+    var result = await this.db.collection(collections.WALLETS).findOne({id});
+    if (!result) return  {'err': 'not result'};
+    return {'err':null, 'wallet': Wallet.fromObj(result)};
+  }
+
+  async fetchTxByHashAsync(hash) {
+    if (!this.db) return {'err': 'not ready'};
+
+    var result = await this.db.collection(collections.TXS).findOne({txid: hash});
+    if (!result) return {'err': 'not result'};
+    return await this._completeTxDataAsync(result.walletId, TxProposal.fromObj(result));
+  }
+
 }
