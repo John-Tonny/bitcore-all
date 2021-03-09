@@ -19,6 +19,9 @@ router.get('/status', async (req, res) => {
     let utxo = '';
     let ret;
     let infos = await ChainStateProvider.getMasternodeStatus({ chain, network, utxo });
+    var infos_sort =  _.sortBy(infos, function(item) {      // john
+      return -item.lastseen;
+    });
     if (typeof txid !== 'undefined') {
       _.forEach(_.keys(infos), function(key) {
         if (key == txid) {
@@ -27,14 +30,14 @@ router.get('/status', async (req, res) => {
         }
       });
     } else if (typeof payee !== 'undefined') {
-      let key = _.findKey(infos, ['payee', payee]);
+      let key = _.findKey(infos_sort, ['payee', payee]);
       if (typeof key != 'undefined') {
-        ret = infos[key];
+        ret = infos_sort[key];
       }
     } else if (typeof address != 'undefined') {
-      let key = _.findKey(infos, ['address', address]);
+      let key = _.findKey(infos_sort, ['address', address]);
       if (typeof key !== 'undefined') {
-        ret = infos[key];
+        ret = infos_sort[key];
       }
     } else {
       ret = infos;
