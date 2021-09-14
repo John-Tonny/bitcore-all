@@ -96,11 +96,11 @@ export class Utils {
   static hashMessage(text) {
     $.checkArgument(text);
     var buf = Buffer.from(text);
-    console.log("text:", text);
-    console.log("buf: ", buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6]);
+    console.log('text:', text);
+    console.log('buf: ', buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6]);
     var ret = Bitcore.crypto.Hash.sha256sha256(buf);
     ret = new Bitcore.encoding.BufferReader(ret).readReverse();
-    console.log("hash: ", ret);
+    console.log('hash: ', ret);
     return ret;
   }
 

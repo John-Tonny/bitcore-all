@@ -1,8 +1,8 @@
 import { BaseModule } from '..';
 import { TRXStateProvider } from './api/csp';
 import { TrxRoutes } from './api/trx-routes';
-import { TrxVerificationPeer } from './p2p/TrxVerificationPeer';
 import { TrxP2pWorker } from './p2p/p2p';
+import { TrxVerificationPeer } from './p2p/TrxVerificationPeer';
 
 export default class TRXModule extends BaseModule {
   constructor(services: BaseModule['bitcoreServices']) {

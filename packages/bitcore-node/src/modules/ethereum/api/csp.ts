@@ -6,7 +6,7 @@ import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { Transaction } from 'web3/eth/types';
 import Config from '../../../config';
-import logger  from '../../../logger';
+import logger from '../../../logger';
 import { timestamp } from '../../../logger';
 import { MongoBound } from '../../../models/base';
 import { ITransaction } from '../../../models/baseTransaction';
@@ -60,7 +60,6 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
   public confIndex: number;
   public confIndexMax: number;
 
-
   constructor(public chain: string = 'ETH') {
     super(chain);
     this.config = Config.chains[this.chain];
@@ -72,10 +71,10 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
     this.confIndexMax = this.config[network].provider.length;
     if (this.confIndex <= 0) {
       this.confIndex = 0;
-    }else {
-      if (this.confIndex < this.confIndexMax-1 ) {
+    } else {
+      if (this.confIndex < this.confIndexMax - 1) {
         this.confIndex += 1;
-      }else {
+      } else {
         this.confIndex = 0;
       }
     }
@@ -513,7 +512,7 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
         {
           $or: [
             { chain, network, from: { $in: addressBatch } },
-            { chain, network, to: { $in: addressBatch } },
+            { chain, network, to: { $in: addressBatch } }
             // { chain, network, 'internal.action.to': { $in: addressBatch } },
             // { chain, network, 'abiType.params.0.value': { $in: addressBatch.map(address => address.toLowerCase()) } }
           ]

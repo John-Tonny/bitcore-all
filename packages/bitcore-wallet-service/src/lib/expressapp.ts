@@ -307,7 +307,7 @@ export class ExpressApp {
     });
 
     router.post('/v2/wallets/', createWalletLimiter, (req, res) => {
-      console.log("#################")
+      console.log('#################');
       console.log(req);
       let server: WalletService;
       try {
@@ -1390,7 +1390,6 @@ export class ExpressApp {
         });
       });
     });
-
 
     // Set no-cache by default
     this.app.use((req, res, next) => {

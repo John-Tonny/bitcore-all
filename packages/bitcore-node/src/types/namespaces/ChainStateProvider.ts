@@ -155,7 +155,6 @@ export type AssetTxParams = ChainNetwork & {
   amount: number;
 };
 
-
 export interface GetCoinsForTxParams {
   chain: string;
   network: string;
@@ -204,11 +203,10 @@ export interface IChainStateService {
   broadcastMasternode(params: BroadcastMasternodeParams): Promise<any>;
   getMasternodeStatus(params: StreamMasternodeStatusParams): Promise<any | undefined>;
 
-  //asset
+  // asset
   getAssetAllocationBalance(params: AssetAddressParams): Promise<any | undefined>;
   syscoinBurnToAssetAllocation(params: AssetTxParams): Promise<any | undefined>;
   assetAllocationBurn(params: AssetTxParams): Promise<any | undefined>;
-
 }
 
 export interface ChainStateServices {

@@ -33,7 +33,6 @@ var querystring = require('querystring');
 var log = require('./log');
 const Errors = require('./errors');
 
-
 var BASE_URL = 'http://localhost:3232/bws/api';
 
 // /**
@@ -699,12 +698,12 @@ export class API extends EventEmitter {
     opts.customData.walletPrivKey = walletPrivKey.toString();
     var encCustomData = Utils.encryptMessage(JSON.stringify(opts.customData), this.credentials.personalEncryptingKey);
     var encCopayerName = Utils.encryptMessage(copayerName, this.credentials.sharedEncryptingKey);
-    console.log("custom: ", opts.customData.walletPrivKey);
-    console.log("encCustom: ", encCustomData);
-    console.log("encCopayer: ", encCopayerName);
-    console.log("share: ", this.credentials.sharedEncryptingKey);
-    console.log("personal: ", this.credentials.personalEncryptingKey);
-    console.log("copayerName:", copayerName);
+    console.log('custom: ', opts.customData.walletPrivKey);
+    console.log('encCustom: ', encCustomData);
+    console.log('encCopayer: ', encCopayerName);
+    console.log('share: ', this.credentials.sharedEncryptingKey);
+    console.log('personal: ', this.credentials.personalEncryptingKey);
+    console.log('copayerName:', copayerName);
 
     var args: any = {
       walletId,
@@ -715,16 +714,15 @@ export class API extends EventEmitter {
       customData: encCustomData
     };
     if (opts.dryRun) args.dryRun = true;
-    console.log("args:");
+    console.log('args:');
     console.log(args);
 
     if (_.isBoolean(opts.supportBIP44AndP2PKH)) args.supportBIP44AndP2PKH = opts.supportBIP44AndP2PKH;
 
     var hash = Utils.getCopayerHash(args.name, args.xPubKey, args.requestPubKey);
     args.copayerSignature = Utils.signMessage(hash, walletPrivKey, opts.coin);
-    console.log("hash:", hash);
-    console.log("signature: ", args.copayerSignature);
-
+    console.log('hash:', hash);
+    console.log('signature: ', args.copayerSignature);
 
     var url = '/v2/wallets/' + walletId + '/copayers';
     this.request.post(url, args, (err, body) => {
@@ -865,9 +863,9 @@ export class API extends EventEmitter {
           coin
         },
         (err, wallet) => {
-	  if (err) return cb(err);
- 	  console.log("#######");
-	  console.log(wallet);
+          if (err) return cb(err);
+          console.log('#######');
+          console.log(wallet);
           return cb(null, n > 1 ? secret : null);
         }
       );
@@ -1342,8 +1340,8 @@ export class API extends EventEmitter {
     var args = {
       proposalSignature: Utils.signMessage(hash, this.credentials.requestPrivKey, opts.txp.coin)
     };
-    console.log("privkey:", this.credentials.requestPrivKey);
-    console.log("proposalSignature:", args.proposalSignature);
+    console.log('privkey:', this.credentials.requestPrivKey);
+    console.log('proposalSignature:', args.proposalSignature);
 
     var url = '/v2/txproposals/' + opts.txp.id + '/publish/';
     this.request.post(url, args, (err, txp) => {
@@ -3119,16 +3117,15 @@ export class API extends EventEmitter {
     }
 
     opts = opts || {};
-    
+
     var coin = opts.coin || 'vcl';
     var network = opts.network || 'livenet';
 
     if (!opts.address) return cb(new Error('Not address'));
- 
-    if (CWC.Validation.validateAddress(coin, network, opts.address)) {    
+
+    if (CWC.Validation.validateAddress(coin, network, opts.address)) {
       return cb(null, true);
     }
     return cb(new Error('Invalid address'), false);
-   }
-
+  }
 }

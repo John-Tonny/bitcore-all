@@ -25,7 +25,7 @@ import {
   TxProposal,
   Wallet
 } from './model';
-import { Masternodes} from './model/masternodes';
+import { Masternodes } from './model/masternodes';
 import { Storage } from './storage';
 
 const config = require('../config');
@@ -759,7 +759,9 @@ export class WalletService {
         }
       ],
       err => {
-        if(err) {return cb(err)};
+        if (err) {
+          return cb(err);
+        }
         return cb(null, status);
       }
     );
@@ -2393,7 +2395,7 @@ export class WalletService {
 
           let raw;
           try {
-            if (txp.coin == 'vcl'){
+            if (txp.coin == 'vcl') {
               raw = txp.getRawTx1();
             } else {
               raw = txp.getRawTx();
@@ -4495,21 +4497,21 @@ export class WalletService {
       if (wallet.addressType != Constants.SCRIPT_TYPES.P2PKH) return cb(Errors.WALLET_NOT_MASTERNODE);
 
       this.getUtxosForCurrentWallet(
-          {
-            coin: opts.coin
-          },
-          (err, utxos) => {
-            if (err) return cb(err);
+        {
+          coin: opts.coin
+        },
+        (err, utxos) => {
+          if (err) return cb(err);
 
-            let ret = new Array();
-            _.each(utxos, utxo => {
-              if (utxo.satoshis == COLLATERAL_COIN) {
-                ret.push(utxo);
-              }
-            });
+          let ret = new Array();
+          _.each(utxos, utxo => {
+            if (utxo.satoshis == COLLATERAL_COIN) {
+              ret.push(utxo);
+            }
+          });
 
-            return cb(null, ret);
-          }
+          return cb(null, ret);
+        }
       );
     });
   }
@@ -4652,16 +4654,16 @@ export class WalletService {
           this.storage.storeMasternode(wallet.id, masternodes, err => {
             if (!err) {
               this._notify(
-                  'NewMasternode',
-                  {
-                    coin: masternodes.coin,
-                    network: masternodes.network,
-                    address: masternodes.address,
-                    txid: masternodes.txid,
-                    masternodeKey: masternodes.masternodeKey,
-                    status: masternodes.status
-                  },
-                  () => {}
+                'NewMasternode',
+                {
+                  coin: masternodes.coin,
+                  network: masternodes.network,
+                  address: masternodes.address,
+                  txid: masternodes.txid,
+                  masternodeKey: masternodes.masternodeKey,
+                  status: masternodes.status
+                },
+                () => {}
               );
             }
           });
@@ -4693,62 +4695,62 @@ export class WalletService {
     }
 
     async.series(
-        [
-          next => {
-            this.getUtxosForCurrentWallet(
-                {
-                  coin: opts.coin
-                },
-                (err, utxos) => {
-                  if (err) return cb(err);
-
-                  let bfind = false;
-                  _.each(utxos, utxo => {
-                    if (utxo.txid == opts.txid && utxo.vout == opts.vout && utxo.satoshis == COLLATERAL_COIN) {
-                      opts.address = utxo.address;
-                      opts.publicKeys = utxo.publicKeys;
-                      opts.path = utxo.path;
-                      opts.confirmations = utxo.confirmations;
-                      bfind = true;
-                      return false;
-                    }
-                  });
-                  if (bfind) {
-                    if (opts.confirmations >= MASTERNODE_MIN_CONFIRMATIONS) {
-                      next();
-                    } else {
-                      return cb('Collateral payment must have at least 15 confirmations');
-                    }
-                  } else {
-                    return cb('Invalid utxo');
-                  }
-                }
-            );
-          },
-          next => {
-            this._getBlockchainHeight(opts.coin, opts.network, (err, height, hash) => {
-              opts.currentHeight = height;
+      [
+        next => {
+          this.getUtxosForCurrentWallet(
+            {
+              coin: opts.coin
+            },
+            (err, utxos) => {
               if (err) return cb(err);
-              next();
-            });
-          },
-          next => {
-            const bc = this._getBlockchainExplorer(opts.coin, opts.network);
-            if (!bc) return cb(new Error('Could not get blockchain explorer instance'));
-            bc.getBlockHashInHeight(opts.currentHeight - 12, (err, height, hash) => {
-              if (!err && height > 0) {
-                opts.pingHeight = height;
-                opts.pingHash = hash;
-                return cb(null, opts);
+
+              let bfind = false;
+              _.each(utxos, utxo => {
+                if (utxo.txid == opts.txid && utxo.vout == opts.vout && utxo.satoshis == COLLATERAL_COIN) {
+                  opts.address = utxo.address;
+                  opts.publicKeys = utxo.publicKeys;
+                  opts.path = utxo.path;
+                  opts.confirmations = utxo.confirmations;
+                  bfind = true;
+                  return false;
+                }
+              });
+              if (bfind) {
+                if (opts.confirmations >= MASTERNODE_MIN_CONFIRMATIONS) {
+                  next();
+                } else {
+                  return cb('Collateral payment must have at least 15 confirmations');
+                }
               } else {
-                return cb(err || 'wrong height');
+                return cb('Invalid utxo');
               }
-            });
-          }
-        ],
-        err => {
-          if (err) return cb(err);
+            }
+          );
+        },
+        next => {
+          this._getBlockchainHeight(opts.coin, opts.network, (err, height, hash) => {
+            opts.currentHeight = height;
+            if (err) return cb(err);
+            next();
+          });
+        },
+        next => {
+          const bc = this._getBlockchainExplorer(opts.coin, opts.network);
+          if (!bc) return cb(new Error('Could not get blockchain explorer instance'));
+          bc.getBlockHashInHeight(opts.currentHeight - 12, (err, height, hash) => {
+            if (!err && height > 0) {
+              opts.pingHeight = height;
+              opts.pingHash = hash;
+              return cb(null, opts);
+            } else {
+              return cb(err || 'wrong height');
+            }
+          });
         }
+      ],
+      err => {
+        if (err) return cb(err);
+      }
     );
   }
 }

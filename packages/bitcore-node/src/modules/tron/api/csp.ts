@@ -6,7 +6,7 @@ import Web3 from 'tronweb';
 // import { AbiItem } from 'web3-utils';
 import { Transaction } from 'web3/eth/types';
 import Config from '../../../config';
-import logger  from '../../../logger';
+import logger from '../../../logger';
 import { timestamp } from '../../../logger';
 import { MongoBound } from '../../../models/base';
 import { ITransaction } from '../../../models/baseTransaction';
@@ -33,7 +33,7 @@ import { StatsUtil } from '../../../utils/stats';
 // import { ERC20Abi } from '../abi/erc20';
 import { TrxBlockStorage } from '../models/block';
 import { TrxTransactionStorage } from '../models/transaction';
-import {TrxTransactionJSON, ITrxBlock, ITrxTransaction} from '../types';
+import { ITrxBlock, ITrxTransaction, TrxTransactionJSON } from '../types';
 import { Erc20RelatedFilterTransform } from './erc20Transform';
 import { InternalTxRelatedFilterTransform } from './internalTxTransform';
 import { PopulateReceiptTransform } from './populateReceiptTransform';
@@ -60,7 +60,6 @@ export class TRXStateProvider extends InternalStateProvider implements IChainSta
   public confIndex: number;
   public confIndexMax: number;
 
-
   constructor(public chain: string = 'TRX') {
     super(chain);
     this.config = Config.chains[this.chain];
@@ -72,10 +71,10 @@ export class TRXStateProvider extends InternalStateProvider implements IChainSta
     this.confIndexMax = this.config[network].provider.length;
     if (this.confIndex <= 0) {
       this.confIndex = 0;
-    }else {
-      if (this.confIndex < this.confIndexMax-1 ) {
+    } else {
+      if (this.confIndex < this.confIndexMax - 1) {
         this.confIndex += 1;
-      }else {
+      } else {
         this.confIndex = 0;
       }
     }
@@ -359,7 +358,9 @@ export class TRXStateProvider extends InternalStateProvider implements IChainSta
     const query = TRX.getWalletTransactionQuery(params);
 
     let transactionStream = new Readable({ objectMode: true });
-    const walletAddresses = (await this.getWalletAddresses(wallet._id!)).map(waddres => web3.address.toHex(waddres.address));
+    const walletAddresses = (await this.getWalletAddresses(wallet._id!)).map(waddres =>
+      web3.address.toHex(waddres.address)
+    );
     const ethTransactionTransform = new TrxListTransactionsStream(walletAddresses);
     const populateReceipt = new PopulateReceiptTransform();
 
@@ -507,7 +508,7 @@ export class TRXStateProvider extends InternalStateProvider implements IChainSta
         {
           $or: [
             { chain, network, from: { $in: addressBatch } },
-            { chain, network, to: { $in: addressBatch } },
+            { chain, network, to: { $in: addressBatch } }
             // { chain, network, 'internal.action.to': { $in: addressBatch } },
             // { chain, network, 'abiType.params.0.value': { $in: addressBatch.map(address => address.toLowerCase()) } }
           ]

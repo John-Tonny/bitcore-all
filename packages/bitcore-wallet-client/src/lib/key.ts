@@ -202,7 +202,7 @@ export class Key {
     }
     return null;
   };
-  
+
   // john
   getPrivateKeyofWif = function(password, rootPath, path, coin, network) {
     var derived: any = {};
@@ -235,15 +235,15 @@ export class Key {
     var xpriv = new Bitcore_[coin].HDPrivateKey(derived);
 
     start = start || 0;
-    stop = stop || (start + 100);
+    stop = stop || start + 100;
 
     var privKey;
-    for(var i = start; i < stop;i++) {
+    for (var i = start; i < stop; i++) {
       var path = 'm/0/' + i.toString();
       if (!derived[path]) {
         privKey = xpriv.deriveChild(path).privateKey;
         var address = privKey.publicKey.toAddress().toString();
-        if (address === queryAddress){
+        if (address === queryAddress) {
           return true;
         }
       }
@@ -254,7 +254,6 @@ export class Key {
   isPrivKeyEncrypted = function() {
     return !!this.xPrivKeyEncrypted && !this.xPrivKey;
   };
-
 
   checkPassword = function(password) {
     if (this.isPrivKeyEncrypted()) {
@@ -413,7 +412,7 @@ export class Key {
     $.shouldBeUndefined(opts.useLegacyCoinType);
     $.shouldBeUndefined(opts.useLegacyPurpose);
 
-    console.log("walletPrivKey:", opts.walletPrivKey);
+    console.log('walletPrivKey:', opts.walletPrivKey);
     let path = this.getBaseAddressDerivationPath(opts);
     let xPrivKey = this.derive(password, path, opts.coin);
 
@@ -436,7 +435,6 @@ export class Key {
       x.privateKey = _.padStart(x.privateKey, 64, '0');
       xPrivKey = new Bitcore_[opts.coin].HDPrivateKey(x);
     }
-
 
     return Credentials.fromDerivedKey({
       xPubKey: xPrivKey.hdPublicKey.toString(),
@@ -493,7 +491,7 @@ export class Key {
         $.checkState(i.path, 'Input derivation path not available (signing transaction)');
         if (!derived[i.path]) {
           derived[i.path] = xpriv.deriveChild(i.path).privateKey;
-	  privs.push(derived[i.path]);
+          privs.push(derived[i.path]);
         }
       });
 
@@ -504,7 +502,7 @@ export class Key {
       signatures = _.map(_.sortBy(_.flatten(signatures), 'inputIndex'), function(s) {
         return s.signature.toDER(txp.signingMethod).toString('hex');
       });
-      console.log("########## signatures ##########");
+      console.log('########## signatures ##########');
       console.log(signatures);
       return signatures;
     } else {

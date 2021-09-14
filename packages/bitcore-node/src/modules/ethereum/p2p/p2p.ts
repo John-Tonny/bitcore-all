@@ -29,7 +29,6 @@ export class EthP2pWorker extends BaseP2PWorker<IEthBlock> {
   public events: EventEmitter;
   public disconnecting: boolean;
 
-
   constructor({ chain, network, chainConfig, blockModel = EthBlockStorage, txModel = EthTransactionStorage }) {
     super({ chain, network, chainConfig, blockModel });
     this.chain = chain || 'ETH';
@@ -69,9 +68,9 @@ export class EthP2pWorker extends BaseP2PWorker<IEthBlock> {
   async setupListeners() {
     var curProvider;
     if (this.chainConfig.provider instanceof Array) {
-        curProvider = this.chainConfig.provider[this.provider.confIndex];
-    }else {
-        curProvider = this.chainConfig.provider;
+      curProvider = this.chainConfig.provider[this.provider.confIndex];
+    } else {
+      curProvider = this.chainConfig.provider;
     }
     const { host, port } = curProvider;
     this.events.on('disconnected', async () => {
@@ -82,7 +81,9 @@ export class EthP2pWorker extends BaseP2PWorker<IEthBlock> {
     this.events.on('connected', async () => {
       this.txSubscription = await this.web3!.eth.subscribe('pendingTransactions');
       this.txSubscription.subscribe(async (_err, txid) => {
-        if (!txid) { return; }
+        if (!txid) {
+          return;
+        }
         if (!this.isCachedInv('TX', txid)) {
           this.cacheInv('TX', txid);
           const tx = (await this.web3!.eth.getTransaction(txid)) as ParityTransaction;
@@ -137,7 +138,7 @@ export class EthP2pWorker extends BaseP2PWorker<IEthBlock> {
           connected = await this.web3.eth.net.isListening();
         } catch (e) {
           connected = false;
-          logger.error("error aaa:", e);
+          logger.error('error aaa:', e);
         }
         if (connected) {
           if (disconnected || firstConnect) {

@@ -3,7 +3,7 @@ import { Constants, Utils } from './common';
 var $ = require('preconditions').singleton();
 
 import * as CWC from 'crypto-wallet-core';
-import {CLIENT_RENEG_LIMIT} from 'tls';
+import { CLIENT_RENEG_LIMIT } from 'tls';
 
 var Bitcore_ = {
   btc: CWC.BitcoreLib,
@@ -157,7 +157,14 @@ export class Verifier {
     // If the txp using a selfsigned pub key?
     if (txp.proposalSignaturePubKey) {
       // Verify it...
-      if (!Utils.verifyRequestPubKey(txp.proposalSignaturePubKey, txp.proposalSignaturePubKeySig, creatorKeys.xPubKey, txp.coin))
+      if (
+        !Utils.verifyRequestPubKey(
+          txp.proposalSignaturePubKey,
+          txp.proposalSignaturePubKeySig,
+          creatorKeys.xPubKey,
+          txp.coin
+        )
+      )
         return false;
 
       creatorSigningPubKey = txp.proposalSignaturePubKey;

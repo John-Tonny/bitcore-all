@@ -50,13 +50,13 @@ export class ParityRPC {
   }
 
   public async getTransactionsFromBlock(blockNumber: number) {
-    return  (await this.traceBlock(blockNumber)) || [];
+    return (await this.traceBlock(blockNumber)) || [];
   }
 
   public async getTransactionInfo(id: string) {
     try {
-      return  (await this.tronWeb.trx.getUnconfirmedTransactionInfo(id));
-    }catch (ex) {
+      return await this.tronWeb.trx.getUnconfirmedTransactionInfo(id);
+    } catch (ex) {
       console.log(ex);
     }
     return {};
@@ -64,8 +64,8 @@ export class ParityRPC {
 
   public async getTransactionInfoByBlockNum(blockNumber: number) {
     try {
-      return (await this.tronWeb.trx.getTransactionInfoByBlockNum(blockNumber));
-    }catch (ex) {
+      return await this.tronWeb.trx.getTransactionInfoByBlockNum(blockNumber);
+    } catch (ex) {
       console.log(ex);
     }
     return {};

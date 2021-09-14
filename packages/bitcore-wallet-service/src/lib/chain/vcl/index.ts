@@ -4,8 +4,8 @@ import _ from 'lodash';
 import * as log from 'npmlog';
 import { IChain, INotificationData } from '..';
 import { ClientError } from '../../errors/clienterror';
-import { TxProposal } from '../../model';
 import logger from '../../logger';
+import { TxProposal } from '../../model';
 
 const $ = require('preconditions').singleton();
 const Common = require('../../common');
@@ -13,7 +13,6 @@ const Constants = Common.Constants;
 const Utils = Common.Utils;
 const Defaults = Common.Defaults;
 const Errors = require('../../errors/errordefinitions');
-
 
 export class VclChain implements IChain {
   protected feeSafetyMargin: number;

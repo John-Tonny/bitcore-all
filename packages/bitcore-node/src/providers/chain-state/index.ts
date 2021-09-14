@@ -1,10 +1,9 @@
 import { Chain } from '../../types/ChainNetwork';
 import {
   // john
-  BroadcastMasternodeParams,
   AssetAddressParams,
   AssetTxParams,
-
+  BroadcastMasternodeParams,
   BroadcastTransactionParams,
   ChainStateServices,
   CreateWalletParams,
@@ -145,7 +144,6 @@ class ChainStateProxy implements IChainStateProvider {
   async assetAllocationBurn(params: AssetTxParams) {
     return this.get(params).assetAllocationBurn(params);
   }
-
 
   registerService(currency: string, service: IChainStateService) {
     services[currency] = service;

@@ -51,10 +51,10 @@ module.exports = {
     },
     eth: {
       livenet: {
-	url: 'http://localhost:3000'
+        url: 'http://localhost:3000'
       },
       testnet: {
-	url: 'http://localhost:3000'
+        url: 'http://localhost:3000'
       }
     },
     xrp: {
@@ -69,7 +69,7 @@ module.exports = {
     vcl: {
       livenet: {
         url: 'http://localhost:3000'
-      } ,
+      },
       testnet: {
         url: 'http://localhost:3000'
       }
@@ -77,7 +77,7 @@ module.exports = {
     trx: {
       livenet: {
         url: 'http://localhost:3000'
-      } ,
+      },
       testnet: {
         url: 'http://localhost:3000'
       }

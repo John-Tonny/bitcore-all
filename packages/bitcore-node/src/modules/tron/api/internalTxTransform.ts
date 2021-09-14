@@ -16,36 +16,17 @@ export class InternalTxRelatedFilterTransform extends Transform {
       const walletAddresses = await this.getWalletAddresses(tx);
       const walletAddressesArray = walletAddresses.map(walletAddress => this.web3.address.toHex(walletAddress.address));
       const walletRelatedIncomingInternalTxs = tx.internal.filter((internalTx: any) =>
-          walletAddressesArray.includes(internalTx.caller_address)
+        walletAddressesArray.includes(internalTx.caller_address)
       );
       const walletRelatedOutgoingInternalTxs = tx.internal.filter((internalTx: any) =>
-          walletAddressesArray.includes(internalTx.transferTo_address)
+        walletAddressesArray.includes(internalTx.transferTo_address)
       );
       const _tx = Object.assign({}, tx);
-      for (const internalTx of walletRelatedIncomingInternalTxs){
+      for (const internalTx of walletRelatedIncomingInternalTxs) {
         _tx.value = 0;
-        if ( internalTx.callValueInfo && internalTx.callValueInfo.length > 0){
-          for ( const valueInfo of internalTx.callValueInfo) {
-            if(!valueInfo.callValue){
-              continue;
-            }
-              _tx.value = Number(internalTx.callValueInfo[0].callValue);
-            if (valueInfo.tokenId) {
-              _tx.assetName = valueInfo.tokenId;
-            }
-          }
-        }
-
-        _tx.to = internalTx.transferTo_address;
-        _tx.from = internalTx.caller_address;
-        _tx.status = internalTx.rejected || false;
-        this.push(_tx);
-      };
-      for (const internalTx of walletRelatedOutgoingInternalTxs){
-        _tx.value = 0;
-        if ( internalTx.callValueInfo && internalTx.callValueInfo.length > 0){
-          for ( const valueInfo of internalTx.callValueInfo) {
-            if(!valueInfo.callValue){
+        if (internalTx.callValueInfo && internalTx.callValueInfo.length > 0) {
+          for (const valueInfo of internalTx.callValueInfo) {
+            if (!valueInfo.callValue) {
               continue;
             }
             _tx.value = Number(internalTx.callValueInfo[0].callValue);
@@ -59,7 +40,26 @@ export class InternalTxRelatedFilterTransform extends Transform {
         _tx.from = internalTx.caller_address;
         _tx.status = internalTx.rejected || false;
         this.push(_tx);
-      };
+      }
+      for (const internalTx of walletRelatedOutgoingInternalTxs) {
+        _tx.value = 0;
+        if (internalTx.callValueInfo && internalTx.callValueInfo.length > 0) {
+          for (const valueInfo of internalTx.callValueInfo) {
+            if (!valueInfo.callValue) {
+              continue;
+            }
+            _tx.value = Number(internalTx.callValueInfo[0].callValue);
+            if (valueInfo.tokenId) {
+              _tx.assetName = valueInfo.tokenId;
+            }
+          }
+        }
+
+        _tx.to = internalTx.transferTo_address;
+        _tx.from = internalTx.caller_address;
+        _tx.status = internalTx.rejected || false;
+        this.push(_tx);
+      }
       if (walletRelatedIncomingInternalTxs.length || walletRelatedOutgoingInternalTxs.length) return done();
     }
     this.push(tx);

@@ -144,10 +144,10 @@ export class Utils {
 
   static formatAmountInVcl(amount) {
     return (
-        Utils.formatAmount(amount, 'vcl', {
-          minDecimals: 8,
-          maxDecimals: 8
-        }) + 'vcl'
+      Utils.formatAmount(amount, 'vcl', {
+        minDecimals: 8,
+        maxDecimals: 8
+      }) + 'vcl'
     );
   }
 

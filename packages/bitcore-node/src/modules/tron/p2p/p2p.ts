@@ -1,17 +1,17 @@
-import {EventEmitter} from 'events';
-import Web3 from 'tronweb';
-import logger, {timestamp} from '../../../logger';
-import {StateStorage} from '../../../models/state';
-import {ChainStateProvider} from '../../../providers/chain-state';
-import {BaseP2PWorker} from '../../../services/p2p';
-// import { valueOrDefault } from '../../../utils/check';
-import {wait} from '../../../utils/wait';
-import {TRXStateProvider} from '../api/csp';
-import {TrxBlockModel, TrxBlockStorage} from '../models/block';
-import {TrxTransactionModel, TrxTransactionStorage} from '../models/transaction';
-import {ContractResult, ITrxBlock, ITrxTransaction, ParityBlock, Transaction} from '../types';
-import {ParityRPC} from './parityRpc';
+import { EventEmitter } from 'events';
 import * as _ from 'lodash';
+import Web3 from 'tronweb';
+import logger, { timestamp } from '../../../logger';
+import { StateStorage } from '../../../models/state';
+import { ChainStateProvider } from '../../../providers/chain-state';
+import { BaseP2PWorker } from '../../../services/p2p';
+// import { valueOrDefault } from '../../../utils/check';
+import { wait } from '../../../utils/wait';
+import { TRXStateProvider } from '../api/csp';
+import { TrxBlockModel, TrxBlockStorage } from '../models/block';
+import { TrxTransactionModel, TrxTransactionStorage } from '../models/transaction';
+import { ContractResult, ITrxBlock, ITrxTransaction, ParityBlock, Transaction } from '../types';
+import { ParityRPC } from './parityRpc';
 
 export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
   protected chainConfig: any;
@@ -28,7 +28,6 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
   protected invCacheLimits: any;
   public events: EventEmitter;
   public disconnecting: boolean;
-
 
   constructor({ chain, network, chainConfig, blockModel = TrxBlockStorage, txModel = TrxTransactionStorage }) {
     super({ chain, network, chainConfig, blockModel });
@@ -69,9 +68,9 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
   async setupListeners() {
     var curProvider;
     if (this.chainConfig.provider instanceof Array) {
-        curProvider = this.chainConfig.provider[this.provider.confIndex];
-    }else {
-        curProvider = this.chainConfig.provider;
+      curProvider = this.chainConfig.provider[this.provider.confIndex];
+    } else {
+      curProvider = this.chainConfig.provider;
     }
     const { host, port } = curProvider;
     this.events.on('disconnected', async () => {
@@ -136,12 +135,12 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
         }
         try {
           let connect_status = await this.web3.isConnected();
-          if ( connect_status.fullNode ){
+          if (connect_status.fullNode) {
             connected = true;
           }
         } catch (e) {
           connected = false;
-          logger.error("error aaa:", e);
+          logger.error('error aaa:', e);
         }
         if (connected) {
           if (disconnected || firstConnect) {
@@ -179,11 +178,11 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
   }
 
   public async getTransactionInfo(id: string) {
-    return (await this.rpc!.getTransactionInfo(id)) ;
+    return await this.rpc!.getTransactionInfo(id);
   }
 
   public async getTransactionInfoByBlockNum(blockNumber: number) {
-    return (await this.rpc!.getTransactionInfoByBlockNum(blockNumber)) ;
+    return await this.rpc!.getTransactionInfoByBlockNum(blockNumber);
   }
 
   async processBlock(block: ITrxBlock, transactions: ITrxTransaction[]): Promise<any> {
@@ -252,19 +251,19 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
       let currentHeight = tip ? tip.height : 0;
       logger.info(`Syncing ${bestBlock - currentHeight} blocks for ${chain} ${network}`);
       while (currentHeight <= bestBlock) {
-	console.time("getBlock");
+        console.time('getBlock');
         const block = await this.getBlock(currentHeight);
-	console.timeEnd("getBlock");
+        console.timeEnd('getBlock');
         if (!block) {
           await wait(1000);
           continue;
-	}
-	console.time("convertBlock");
-	const { convertedBlock, convertedTxs } = await this.convertBlock(block);
-	console.timeEnd("convertBlock");
-	console.time("processBlock");
+        }
+        console.time('convertBlock');
+        const { convertedBlock, convertedTxs } = await this.convertBlock(block);
+        console.timeEnd('convertBlock');
+        console.time('processBlock');
         await this.processBlock(convertedBlock, convertedTxs);
-	console.timeEnd("processBlock");
+        console.timeEnd('processBlock');
         if (currentHeight === bestBlock) {
           currentBlock = await this.web3!.trx.getBlockByNumber(currentHeight);
           bestBlock = currentBlock.block_header.raw_data.number;
@@ -307,7 +306,7 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
     return new Promise(resolve => this.events.once('SYNCDONE', resolve));
   }
 
-  async convertedTxs (transactions: Transaction[], block) {
+  async convertedTxs(transactions: Transaction[], block) {
     var arr: ITrxTransaction[] = [];
     if (transactions) {
       for (const tx of transactions) {
@@ -318,13 +317,13 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
     return arr;
   }
 
-  async convertedTxs_1 (transactions: Transaction[], block) {
+  async convertedTxs_1(transactions: Transaction[], block) {
     try {
       var arr: ITrxTransaction[] = [];
       if (transactions) {
-        console.time("getInfo");
-        var transactionInfos = await this.getTransactionInfoByBlockNum(block.height)
-        console.timeEnd("getInfo");
+        console.time('getInfo');
+        var transactionInfos = await this.getTransactionInfoByBlockNum(block.height);
+        console.timeEnd('getInfo');
         for (const tx of transactions) {
           let key = _.findKey(transactionInfos, ['txid', tx.txID]);
           let txInfo = {};
@@ -336,7 +335,7 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
         }
       }
       return arr;
-    }catch(e) {
+    } catch (e) {
       console.log(e);
     }
     return [];
@@ -348,7 +347,7 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
       blockTime = Number(block.block_header.raw_data.timestamp);
     }
     var blockTime1 = new Date(blockTime);
-    
+
     const hash = block.blockID;
     var height = 0;
     if (block.block_header.raw_data.number) {
@@ -390,9 +389,9 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
       processed: false,
       txTrieRoot: Buffer.from(block.block_header.raw_data.txTrieRoot),
       witnessId: witndessId,
-      witnessAddress: witnessAddress,
-      accountStateRoot: accountStateRoot,
-      witnessSignature: witnessSignature
+      witnessAddress,
+      accountStateRoot,
+      witnessSignature
     };
     const transactions = block.transactions;
     var convertedTxs = await this.convertedTxs_1(transactions, convertedBlock); // transactions.map( t => this.convertTx(t, convertedBlock));
@@ -408,30 +407,29 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
       var assetName;
       var value = 0;
       var data;
-      var callValue  = 0;
+      var callValue = 0;
       var status = false;
       var error;
 
       const receipt = await this.getTransactionInfo(txid);
-      const fee = Number( receipt.fee! || 0);
+      const fee = Number(receipt.fee! || 0);
       const internal = receipt.InternalTransaction!;
-      if ( tx.ret ) {
-        if ( tx.ret[0].ret ) {
-          if ( !tx.ret[0].ret )
+      if (tx.ret) {
+        if (tx.ret[0].ret) {
+          if (!tx.ret[0].ret) status = true;
+        } else {
+          if (tx.ret[0].contractRet == ContractResult.SUCCESS) {
             status = true;
-        }else {
-          if ( tx.ret[0].contractRet == ContractResult.SUCCESS ){
-            status = true;
-          }else {
+          } else {
             error = 'user error';
           }
         }
-      }else{
+      } else {
         status = true;
       }
 
       const type = tx.raw_data.contract[0].type;
-      switch(type) {
+      switch (type) {
         case 'AccountCreateContract':
           from = tx.raw_data.contract[0].parameter.value.owner_address;
           break;
@@ -499,18 +497,17 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
           break;
       }
 
-
       const abiType = this.txModel.abiDecode(tx.raw_data.contract[0].parameter.value.data!);
       const convertedTx: ITrxTransaction = {
-        assetName: assetName,
-        type: type,
-        status: status,
-        error: error,
+        assetName,
+        type,
+        status,
+        error,
         chain: this.chain,
         network: this.network,
         blockHeight: receipt.blockNumber,
         blockHash: receipt.id,
-        data: data,
+        data,
         txid,
         blockTime: new Date(),
         blockTimeNormalized: new Date(),
@@ -519,7 +516,7 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
         wallets: [],
         to,
         from,
-        callValue: callValue,
+        callValue,
         contract: tx.raw_data.contract,
         refBlockBytes: tx.raw_data.ref_block_bytes,
         refBlockNum: tx.raw_data.ref_block_num,
@@ -528,9 +525,8 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
         auths: tx.raw_data.auths || undefined,
         feeLimit: tx.raw_data.fee_limit,
         signature: tx.signature,
-        internal: internal,
-
-      }
+        internal
+      };
       if (abiType) {
         convertedTx.abiType = abiType;
       }
@@ -548,40 +544,39 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
     }
   }
 
-  async convertTx_1(tx: Transaction,  block: ITrxBlock, txInfo?: any) {
+  async convertTx_1(tx: Transaction, block: ITrxBlock, txInfo?: any) {
     const txid = tx.txID || '';
     var from = '';
     var to = '';
     var assetName;
     var value = 0;
     var data;
-    var callValue  = 0;
+    var callValue = 0;
     var status = false;
     var error;
 
     var fee = 0;
     var internal = [];
-    if(txInfo){
-      fee = Number( txInfo.fee! || 0);
+    if (txInfo) {
+      fee = Number(txInfo.fee! || 0);
       internal = txInfo.InternalTransaction!;
     }
-    if ( tx.ret ) {
-      if ( tx.ret[0].ret ) {
-        if ( !tx.ret[0].ret )
+    if (tx.ret) {
+      if (tx.ret[0].ret) {
+        if (!tx.ret[0].ret) status = true;
+      } else {
+        if (tx.ret[0].contractRet == ContractResult.SUCCESS) {
           status = true;
-      }else {
-        if ( tx.ret[0].contractRet == ContractResult.SUCCESS ){
-          status = true;
-        }else {
+        } else {
           error = 'user error';
         }
       }
-    }else{
+    } else {
       status = true;
     }
 
     const type = tx.raw_data.contract[0].type;
-    switch(type) {
+    switch (type) {
       case 'AccountCreateContract':
         from = tx.raw_data.contract[0].parameter.value.owner_address;
         break;
@@ -614,7 +609,7 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
         assetName = tx.raw_data.contract[0].parameter.value.token_id!;
         value = Number(tx.raw_data.contract[0].parameter.value.quant);
         break;
-        /*
+      /*
         case 'VoteAssetContract':
         case 'WitnessCreateContract':
         case 'AssetIssueContract':
@@ -649,18 +644,17 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
         break;
     }
 
-
     const abiType = this.txModel.abiDecode(tx.raw_data.contract[0].parameter.value.data!);
     const convertedTx: ITrxTransaction = {
-      assetName: assetName,
-      type: type,
-      status: status,
-      error: error,
+      assetName,
+      type,
+      status,
+      error,
       chain: this.chain,
       network: this.network,
       blockHeight: block.height,
       blockHash: block.hash,
-      data: data,
+      data,
       txid,
       blockTime: new Date(),
       blockTimeNormalized: new Date(),
@@ -669,7 +663,7 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
       wallets: [],
       to,
       from,
-      callValue: callValue,
+      callValue,
       contract: tx.raw_data.contract,
       refBlockBytes: tx.raw_data.ref_block_bytes,
       refBlockNum: tx.raw_data.ref_block_num,
@@ -678,9 +672,8 @@ export class TrxP2pWorker extends BaseP2PWorker<ITrxBlock> {
       auths: tx.raw_data.auths || undefined,
       feeLimit: tx.raw_data.fee_limit,
       signature: tx.signature,
-      internal: internal,
-
-    }
+      internal
+    };
     if (abiType) {
       convertedTx.abiType = abiType;
     }

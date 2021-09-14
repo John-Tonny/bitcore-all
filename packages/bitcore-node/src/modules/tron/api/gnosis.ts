@@ -6,10 +6,10 @@ import { StreamWalletTransactionsParams } from '../../../types/namespaces/ChainS
 import { MultisigAbi } from '../abi/multisig';
 import { TrxBlockStorage } from '../models/block';
 import { TrxTransactionStorage } from '../models/transaction';
-import { TRX, EventLog } from './csp';
-import { TrxMultisigRelatedFilterTransform } from './trxMultisigTransform';
+import { EventLog, TRX } from './csp';
 import { PopulateReceiptTransform } from './populateReceiptTransform';
 import { TrxListTransactionsStream } from './transform';
+import { TrxMultisigRelatedFilterTransform } from './trxMultisigTransform';
 
 interface MULTISIGInstantiation
   extends EventLog<{

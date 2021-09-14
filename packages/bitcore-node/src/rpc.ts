@@ -122,22 +122,20 @@ export class RPC {
   }
 
   // john  asset
-  getAssetAllocationBalance(address: string){
+  getAssetAllocationBalance(address: string) {
     let ret = this.asyncCall<string>('assetallocationbalance', [SYSX_ASSET_GUID, address]);
     return ret;
   }
 
-  syscoinBurnToAssetAllocation(address: string, amount: number){
+  syscoinBurnToAssetAllocation(address: string, amount: number) {
     let ret = this.asyncCall<string>('syscoinburntoassetallocation', [address, SYSX_ASSET_GUID, amount]);
     return ret;
   }
 
-  assetAllocationBurn(address: string, amount: number){
+  assetAllocationBurn(address: string, amount: number) {
     let ret = this.asyncCall<string>('assetallocationburn', [SYSX_ASSET_GUID, address, amount]);
     return ret;
   }
-
-
 }
 
 @LoggifyClass

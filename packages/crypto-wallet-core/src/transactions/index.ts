@@ -4,8 +4,8 @@ import { ERC20TxProvider } from './erc20';
 import { ETHTxProvider } from './eth';
 import { ETHMULTISIGTxProvider } from './eth-multisig';
 import { TRXTxProvider } from './trx';
-import { XRPTxProvider } from './xrp';
 import { VCLTxProvider } from './vcl';
+import { XRPTxProvider } from './xrp';
 
 const providers = {
   BTC: new BTCTxProvider(),

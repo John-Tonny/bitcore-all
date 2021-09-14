@@ -7,7 +7,7 @@ class LibProvider {
     VCL: {
       lib: require('vircle-lib'),
       p2p: require('vircle-p2p')
-    }    
+    }
   };
 
   register(chain: string, lib: string, p2p: string) {

@@ -125,9 +125,9 @@ export class Credentials {
     const entropySource = Bitcore_[opts.coin].crypto.Hash.sha256(priv.toBuffer()).toString('hex');
     const b = Buffer.from(entropySource, 'hex');
     const b2 = Bitcore_[opts.coin].crypto.Hash.sha256hmac(b, Buffer.from(prefix));
-    console.log("entropySource:",entropySource);
-    console.log("b2:", b2.toString('hex'));
-    console.log(b2.slice(0,16).toString('hex'));
+    console.log('entropySource:', entropySource);
+    console.log('b2:', b2.toString('hex'));
+    console.log(b2.slice(0, 16).toString('hex'));
     x.personalEncryptingKey = b2.slice(0, 16).toString('base64');
     x.copayerId = Utils.xPubToCopayerId(x.coin, x.xPubKey);
     x.publicKeyRing = [
@@ -301,7 +301,10 @@ export class Credentials {
 
   isComplete() {
     if (!this.m || !this.n) return false;
-    if ((this.coin === 'btc' || this.coin === 'bch' || this.coin == 'vcl') && (!this.publicKeyRing || this.publicKeyRing.length != this.n))
+    if (
+      (this.coin === 'btc' || this.coin === 'bch' || this.coin == 'vcl') &&
+      (!this.publicKeyRing || this.publicKeyRing.length != this.n)
+    )
       return false;
     return true;
   }

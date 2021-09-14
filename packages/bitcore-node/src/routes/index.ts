@@ -4,8 +4,8 @@ import express from 'express';
 import config from '../config';
 import { Config } from '../services/config';
 import { CacheMiddleware, CacheTimes, LogMiddleware, RateLimiter } from './middleware';
-import { Web3Proxy } from './web3';
 import { TronWebProxy } from './tronweb';
+import { Web3Proxy } from './web3';
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -81,6 +81,5 @@ app.use('/api/:chain/:network', (req: Request, resp: Response, next: any) => {
 app.use('/api/:chain/:network', bootstrap('api'));
 app.use('/web3/:chain/:network', Web3Proxy);
 app.use('/tronweb/:chain/:network', TronWebProxy);
-
 
 export default app;

@@ -11,5 +11,5 @@ module.exports = {
   VCL: {
     lib: require('vircle-lib'),
     p2p: require('vircle-p2p')
-  }  
+  }
 };

@@ -19,7 +19,7 @@ export class Request {
 
   constructor(url?, opts?) {
     this.baseUrl = url;
-    
+
     this.r = opts.r || request;
     this.supportStaffWalletId = opts.supportStaffWalletId;
 
@@ -118,14 +118,14 @@ export class Request {
         if (!res.status) return cb(new Errors.CONNECTION_ERROR());
 
         log.error('HTTP Error:' + res.status);
-	if (!res.body) return cb(new Error(res.status));
+        if (!res.body) return cb(new Error(res.status));
         return cb(Request._parseError(res.body));
       }
 
       if (res.body === '{"error":"read ECONNRESET"}') return cb(new Errors.ECONNRESET_ERROR(JSON.parse(res.body)));
-      console.log("########## body start ###################")
-      console.log("res:", url, res.body);
-      console.log("########## body end ###################")
+      console.log('########## body start ###################');
+      console.log('res:', url, res.body);
+      console.log('########## body end ###################');
       return cb(null, res.body, res.header);
     });
   }

@@ -157,13 +157,13 @@ export class Masternode {
     presult += this.get_int32(1);
     // presult += this.get_int32(parseInt(parseInt(CLIENT_SENTINEL_VERSION)/1000000));
     // presult += this.get_int32(parseInt(parseInt(CLIENT_MASTERNODE_VERSION)/1000000));
-    
+
     var pingMsg = new Bitcore.Message(presult);
     var pingKey = new Bitcore.PrivateKey(this.privKey);
     var pingSig = pingMsg.sign1(pingKey);
-    console.log("pingMsg:", presult);
-    console.log("pingSig:", pingSig);
-    console.log("pingKey:", pingKey.toString('hex'));
+    console.log('pingMsg:', presult);
+    console.log('pingSig:', pingSig);
+    console.log('pingKey:', pingKey.toString('hex'));
 
     var result = '';
     result += this.serialize_input();
@@ -181,13 +181,13 @@ export class Masternode {
     result += signTime;
     result += this.get_int32(31800);
 
-    console.log("msg:", result);
-    console.log("privKey:", this.signPrivKey);
-    console.log("signPubKey:", signPubKey);
-    console.log("pubkey:", pubKey);
+    console.log('msg:', result);
+    console.log('privKey:', this.signPrivKey);
+    console.log('signPubKey:', signPubKey);
+    console.log('pubkey:', pubKey);
     var msg = new Bitcore.Message(result);
     var sig = msg.sign1(this.signPrivKey);
-    console.log("sig:", sig);
+    console.log('sig:', sig);
 
     var sresult = '01';
     sresult += this.serialize_input();
@@ -202,13 +202,13 @@ export class Masternode {
     sresult += this.get_varintNum(sig.length / 2);
     sresult += sig;
     sresult += signTime;
-    console.log("signTime:", signTime);
+    console.log('signTime:', signTime);
     sresult += this.get_int32(31800);
 
     sresult += this.serialize_input();
     sresult += this.hash_decode();
     sresult += pingTime;
-    console.log("pingTime:", pingTime);
+    console.log('pingTime:', pingTime);
 
     sresult += this.get_varintNum(sig.length / 2);
     sresult += pingSig;

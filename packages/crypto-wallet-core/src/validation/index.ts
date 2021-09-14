@@ -2,8 +2,8 @@ import { BchValidation } from './bch';
 import { BtcValidation } from './btc';
 import { EthValidation } from './eth';
 import { TrxValidation } from './trx';
-import { XrpValidation } from './xrp';
 import { VclValidation } from './vcl';
+import { XrpValidation } from './xrp';
 
 export interface IValidation {
   validateAddress(network: string, address: string): boolean;

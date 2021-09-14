@@ -5,7 +5,7 @@ module.exports = {
   COINS: {
     ETH: 'eth',
     VCL: 'vcl',
-    TRX:  'trx',
+    TRX: 'trx',
     USDC: 'usdc',
     PAX: 'pax',
     GUSD: 'gusd',

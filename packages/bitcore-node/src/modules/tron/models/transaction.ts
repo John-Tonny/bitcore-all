@@ -1,25 +1,25 @@
-import {ObjectID} from 'bson';
+import { ObjectID } from 'bson';
 import * as _ from 'lodash';
-import {LoggifyClass} from '../../../decorators/Loggify';
+import { LoggifyClass } from '../../../decorators/Loggify';
 import logger from '../../../logger';
-import {MongoBound} from '../../../models/base';
-import {BaseTransaction} from '../../../models/baseTransaction';
-import {CacheStorage} from '../../../models/cache';
-import {EventStorage} from '../../../models/events';
-import {WalletAddressStorage} from '../../../models/walletAddress';
-import {Config} from '../../../services/config';
-import {Storage, StorageService} from '../../../services/storage';
-import {SpentHeightIndicators} from '../../../types/Coin';
-import {StreamingFindOptions} from '../../../types/Query';
-import {TransformOptions} from '../../../types/TransformOptions';
-import {valueOrDefault} from '../../../utils/check';
-import {partition} from '../../../utils/partition';
-import {ERC20Abi} from '../abi/erc20';
-import {ERC721Abi} from '../abi/erc721';
-import {InvoiceAbi} from '../abi/invoice';
-import {MultisigAbi} from '../abi/multisig';
+import { MongoBound } from '../../../models/base';
+import { BaseTransaction } from '../../../models/baseTransaction';
+import { CacheStorage } from '../../../models/cache';
+import { EventStorage } from '../../../models/events';
+import { WalletAddressStorage } from '../../../models/walletAddress';
+import { Config } from '../../../services/config';
+import { Storage, StorageService } from '../../../services/storage';
+import { SpentHeightIndicators } from '../../../types/Coin';
+import { StreamingFindOptions } from '../../../types/Query';
+import { TransformOptions } from '../../../types/TransformOptions';
+import { valueOrDefault } from '../../../utils/check';
+import { partition } from '../../../utils/partition';
+import { ERC20Abi } from '../abi/erc20';
+import { ERC721Abi } from '../abi/erc721';
+import { InvoiceAbi } from '../abi/invoice';
+import { MultisigAbi } from '../abi/multisig';
 
-import {ITrxTransaction, TrxTransactionJSON} from '../types';
+import { ITrxTransaction, TrxTransactionJSON } from '../types';
 
 function requireUncached(module) {
   delete require.cache[require.resolve(module)];
@@ -60,7 +60,7 @@ export class TrxTransactionModel extends BaseTransaction<ITrxTransaction> {
     super.onConnect();
     this.collection.createIndex({ chain: 1, network: 1, to: 1 }, { background: true, sparse: true });
     this.collection.createIndex({ chain: 1, network: 1, from: 1 }, { background: true, sparse: true });
-    this.collection.createIndex({ chain: 1, network: 1, assetName: 1}, { background: true, sparse: true });
+    this.collection.createIndex({ chain: 1, network: 1, assetName: 1 }, { background: true, sparse: true });
     this.collection.createIndex(
       { chain: 1, network: 1, 'abiType.params.0.value': 1, blockTimeNormalized: 1 },
       {
@@ -76,11 +76,11 @@ export class TrxTransactionModel extends BaseTransaction<ITrxTransaction> {
       }
     );
     this.collection.createIndex(
-        { chain: 1, network: 1, 'internal.transferTo_address': 1 },
-        {
-          background: true,
-          sparse: true
-        }
+      { chain: 1, network: 1, 'internal.transferTo_address': 1 },
+      {
+        background: true,
+        sparse: true
+      }
     );
   }
 
@@ -321,7 +321,7 @@ export class TrxTransactionModel extends BaseTransaction<ITrxTransaction> {
       type: tx.type || undefined,
       status: tx.status,
       error: tx.error,
-      internal: valueOrDefault(tx.internal, undefined),
+      internal: valueOrDefault(tx.internal, undefined)
     };
     if (options && options.object) {
       return transaction;

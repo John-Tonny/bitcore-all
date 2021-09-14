@@ -2,8 +2,8 @@
 
 import { ITransaction } from '../../models/baseTransaction';
 import { IBlock } from '../../types/Block';
+import { ITrxTransaction } from '../tron/types';
 import { TokenTransferResponse } from './p2p/parityRpc';
-import {ITrxTransaction} from "../tron/types";
 
 // john
 enum AccountType {
@@ -36,7 +36,7 @@ enum State_Proposal {
 export interface Proposal {
   proposal_id: number;
   proposer_address: string;
-  parameters: Array<{first:number, second:number}>;
+  parameters: Array<{ first: number; second: number }>;
   expiration_time: number;
   create_time: number;
   approvals: Array<string>;
@@ -70,7 +70,7 @@ export interface MarketOrder {
   buy_token_quantity: number; // min to receive
   sell_token_quantity_remain: number;
   // When state != ACTIVE and sell_token_quantity_return !=0,
-  //it means that some sell tokens are returned to the account due to insufficient remaining amount
+  // it means that some sell tokens are returned to the account due to insufficient remaining amount
   sell_token_quantity_return: number;
 
   state: State_MarketOrder;
@@ -79,7 +79,7 @@ export interface MarketOrder {
   next: string;
 }
 
-export interface MarketOrderPair{
+export interface MarketOrderPair {
   sell_token_id: string;
   buy_token_id: string;
 }
@@ -136,9 +136,9 @@ export interface AccountResource {
   frozen_balance_for_energy: Frozen;
   latest_consume_time_for_energy: number;
 
-  //Frozen balance provided by other accounts to this account
+  // Frozen balance provided by other accounts to this account
   acquired_delegated_frozen_balance_for_energy: number;
-  //Frozen balances provided to other accounts
+  // Frozen balances provided to other accounts
   delegated_frozen_balance_for_energy: number;
 
   // storage resource, get from market
@@ -155,11 +155,11 @@ enum PermissionType {
 
 export interface Permission {
   type: PermissionType;
-  id: number; //Owner id=0, Witness id=1, Active id start by 2
+  id: number; // Owner id=0, Witness id=1, Active id start by 2
   permission_name: string;
   threshold: number;
   parent_id: number;
-  operations: string; //1 bit 1 contract
+  operations: string; // 1 bit 1 contract
   keys: Array<Key>;
 }
 
@@ -175,18 +175,18 @@ export interface Account {
   // the votes
   votes: Array<Vote>;
   // the other asset owned by this account
-  asset:Array<{first:string, second:number}>  ;
+  asset: Array<{ first: string; second: number }>;
 
   // the other asset owned by this account，key is assetId
-  assetV2: Array<{first:string, second:number}>;
+  assetV2: Array<{ first: string; second: number }>;
 
   // the frozen balance for bandwidth
   frozen: Array<Frozen>;
   // bandwidth, get from frozen
   net_usage: number;
-  //Frozen balance provided by other accounts to this account
+  // Frozen balance provided by other accounts to this account
   acquired_delegated_frozen_balance_for_bandwidth: number;
-  //Freeze and provide balances to other accounts
+  // Freeze and provide balances to other accounts
   delegated_frozen_balance_for_bandwidth: number;
 
   // this account create time
@@ -206,11 +206,11 @@ export interface Account {
   // asset_issued_name
   asset_issued_name: string;
   asset_issued_ID: string;
-  latest_asset_operation_time: Array<{first:string, second:number}>;
-  latest_asset_operation_timeV2: Array<{first:string, second:number}>;
+  latest_asset_operation_time: Array<{ first: string; second: number }>;
+  latest_asset_operation_timeV2: Array<{ first: string; second: number }>;
   free_net_usage: number;
-  free_asset_net_usage: Array<{first:string, second:number}>;
-  free_asset_net_usageV2: Array<{first:string, second:number}>;
+  free_asset_net_usage: Array<{ first: string; second: number }>;
+  free_asset_net_usageV2: Array<{ first: string; second: number }>;
   latest_consume_time: number;
   latest_consume_free_time: number;
 
@@ -223,7 +223,6 @@ export interface Account {
   witness_permission: Permission;
   active_permission: Array<Permission>;
 }
-
 
 export interface Key {
   address: string;
@@ -239,11 +238,10 @@ export interface DelegatedResource {
   expire_time_for_energy: number;
 }
 
-export interface authority {
+export interface Authority {
   account: AccountId;
   permission_name: string;
 }
-
 
 // Witness
 export interface Witness {
@@ -272,14 +270,14 @@ export interface TXOutput {
   pubKeyHash: string;
 }
 
-export interface raw_TXInput {
+export interface RawTXInput {
   txID: string;
   vout: number;
   pubKey: string;
 }
 
 export interface TXInput {
-  raw_data: raw_TXInput;
+  raw_data: RawTXInput;
   signature: string;
 }
 
@@ -342,7 +340,7 @@ export enum ContractType {
   MarketCancelOrderContract = 53
 }
 
-export interface Value_ParaMeter {
+export interface ValueParaMeter {
   asset_name?: string; // this field is token name before the proposal ALLOW_SAME_TOKEN_NAME is active, otherwise it is token id and token is should be in string format.
   owner_address?: string;
   to_address?: string;
@@ -390,7 +388,7 @@ export enum ContractResult {
   TRANSFER_FAILED = 14
 }
 
-export interface  Result_Transaction {
+export interface ResultTransaction {
   fee?: number;
   ret?: code_Result;
   contractRet: ContractResult;
@@ -408,13 +406,13 @@ export interface  Result_Transaction {
   orderDetails?: Array<MarketOrderDetail>;
 }
 
-export interface raw_Transaction {
+export interface RawTransaction {
   ref_block_bytes: string;
   ref_block_num: number;
   ref_block_hash: string;
   expiration: number;
-  auths?: Array<authority>;
-  //only support size = 1,  repeated list here for extension
+  auths?: Array<Authority>;
+  // only support size = 1,  repeated list here for extension
   contract: Array<Contract>;
   timestamp?: number;
   fee_limit?: number;
@@ -422,11 +420,11 @@ export interface raw_Transaction {
 
 export interface Transaction {
   txID: string;
-  raw_data: raw_Transaction;
+  raw_data: RawTransaction;
   raw_data_hex: string;
   // only support size = 1,  repeated list here for muti-sig extension
   signature: Array<string>;
-  ret: Array<Result_Transaction>;
+  ret: Array<ResultTransaction>;
 }
 
 enum code_status {
@@ -481,12 +479,12 @@ export interface TransactionSign {
   privateKey: string;
 }
 
-export interface raw_BlockHeader {
+export interface RawBlockHeader {
   timestamp: number;
   txTrieRoot: string;
   parentHash: string;
-  //bytes nonce = 5;
-  //bytes difficulty = 6;
+  // bytes nonce = 5;
+  // bytes difficulty = 6;
   number: number;
   witness_id?: number;
   witness_address?: string;
@@ -495,7 +493,7 @@ export interface raw_BlockHeader {
 }
 
 export interface BlockHeader {
-  raw_data: raw_BlockHeader;
+  raw_data: RawBlockHeader;
   witness_signature: string;
 }
 
@@ -564,8 +562,8 @@ enum ReasonCode {
   NULL_IDENTITY = 0x07,
   PEER_QUITING = 0x08,
   UNEXPECTED_IDENTITY = 0x09,
-  LOCAL_IDENTITY = 0x0A,
-  PING_TIMEOUT = 0x0B,
+  LOCAL_IDENTITY = 0x0a,
+  PING_TIMEOUT = 0x0b,
   USER_REASON = 0x10,
   RESET = 0x11,
   SYNC_FAIL = 0x12,
@@ -579,7 +577,7 @@ enum ReasonCode {
   TIME_OUT = 0x20,
   CONNECT_FAIL = 0x21,
   TOO_MANY_PEERS_WITH_SAME_IP = 0x22,
-  UNKNOWN = 0xFF
+  UNKNOWN = 0xff
 }
 
 export interface DisconnectMessage {
@@ -615,7 +613,7 @@ export interface DelegatedResourceAccountIndex {
 export interface PeerInfo {
   lastSyncBlock: string;
   remainNum: number;
-  lastBlockUpdateTime:number;
+  lastBlockUpdateTime: number;
   syncFlag: boolean;
   headBlockTimeWeBothHave: number;
   needSyncFromPeer: boolean;
@@ -700,7 +698,7 @@ export interface NodeInfo {
   beginSyncNum: number;
   block: string;
   solidityBlock: string;
-  //connect information
+  // connect information
   currentConnectCount: number;
   activeConnectCount: number;
   passiveConnectCount: number;
@@ -708,7 +706,7 @@ export interface NodeInfo {
   peerInfoList: Array<PeerInfo>;
   configNodeInfo: ConfigNodeInfo;
   machineInfo: MachineInfo;
-  cheatWitnessInfoMap: Array<{first:string, second:string}>;
+  cheatWitnessInfoMap: Array<{ first: string; second: string }>;
 }
 
 export interface NodeInfo {
@@ -726,12 +724,12 @@ export interface RateInfo {
   fifteenMinuteRate: number;
 }
 
-export interface Witness_BlockChainInfo {
+export interface WitnessBlockChainInfo {
   address: string;
   version: number;
 }
 
-export interface DupWitness_BlockChainInfo {
+export interface DupWitnessBlockChainInfo {
   address: string;
   blockNum: number;
   count: number;
@@ -747,10 +745,10 @@ export interface BlockChainInfo {
   tps: RateInfo;
   transactionCacheSize: number;
   missedTransaction: RateInfo;
-  witnesses: Array<Witness_BlockChainInfo>;
+  witnesses: Array<WitnessBlockChainInfo>;
   failProcessBlockNum: number;
   failProcessBlockReason: string;
-  dupWitness: Array<DupWitness_BlockChainInfo>;
+  dupWitness: Array<DupWitnessBlockChainInfo>;
 }
 
 export interface ApiDetailInfo {
@@ -764,7 +762,6 @@ export interface ApiInfo {
   failQps: RateInfo;
   outTraffic: RateInfo;
   detail: Array<ApiDetailInfo>;
-
 }
 
 export interface DisconnectionDetailInfo {
@@ -814,27 +811,27 @@ export interface MetricsInfo {
   net: NetInfo;
 }
 
-enum MsgType_PBFTMessage {
+enum MsgTypePBFTMessage {
   VIEW_CHANGE = 0,
   REQUEST = 1,
   PREPREPARE = 2,
   PREPARE = 3,
   COMMIT = 4
 }
-enum DataType_PBFTMessage {
+enum DataTypePBFTMessage {
   BLOCK = 0,
   SRL = 1
 }
-export interface Raw_PBFTMessage {
-  msg_type: MsgType_PBFTMessage;
-  data_type: DataType_PBFTMessage;
+export interface RawPBFTMessage {
+  msg_type: MsgTypePBFTMessage;
+  data_type: DataTypePBFTMessage;
   view_n: number;
   epoch: number;
   data: string;
 }
 
 export interface PBFTMessage {
-  raw_data: Raw_PBFTMessage;
+  raw_data: RawPBFTMessage;
   signature: Array<string>;
 }
 
@@ -855,11 +852,11 @@ export interface ParityBlock {
 }
 export interface ParityTransaction {
   txID: string;
-  raw_data: raw_Transaction;
+  raw_data: RawTransaction;
   raw_data_hex: string;
   // only support size = 1,  repeated list here for muti-sig extension
   signature: Array<string>;
-  ret: Array<Result_Transaction>;
+  ret: Array<ResultTransaction>;
 }
 
 export type Networks = 'mainnet' | 'ropsten' | 'rinkeby' | 'goerli' | 'kovan';
@@ -871,7 +868,7 @@ export interface TronBlock {
 }
 
 export interface TronHeader {
-  raw_data: raw_BlockHeader;
+  raw_data: RawBlockHeader;
   witness_signature?: string;
 }
 
@@ -889,9 +886,9 @@ export type ITrxTransaction = ITransaction & {
   refBlockNum: number;
   refBlockHash: string;
   expiration: number;
-  auths?: Array<authority>;
+  auths?: Array<Authority>;
 
-  //only support size = 1,  repeated list here for extension
+  // only support size = 1,  repeated list here for extension
   contract: Array<Contract>;
 
   feeLimit?: number;
@@ -955,5 +952,3 @@ export interface TrxTransactionJSON {
   status?: boolean;
   error?: string;
 }
-
-

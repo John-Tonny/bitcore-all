@@ -3,9 +3,9 @@ import { BtcDeriver } from './btc';
 import { EthDeriver } from './eth';
 import { Paths } from './paths';
 import { TrxDeriver } from './trx';
-import { XrpDeriver } from './xrp';
 // john
 import { VclDeriver } from './vcl';
+import { XrpDeriver } from './xrp';
 
 export interface Key {
   address: string;
