@@ -10,6 +10,7 @@ import {
   TxsProvider
 } from '../../providers/transactions/transactions';
 
+
 /**
  * Generated class for the TransactionDetailsComponent component.
  *
@@ -90,6 +91,37 @@ export class TransactionDetailsComponent implements OnInit {
 
     return v.address;
   }
+
+  public getScriptType(v:ApiCoin): string {
+    const slen = v.script.toString().length/2;
+    const sBuf = Buffer.from(v.script.toString(), 'hex');
+
+    if (slen === 25 && sBuf[0] === 0x76 && sBuf[1] === 0xa9 && sBuf[2] === 0x14 && sBuf[23] === 0x88 && sBuf[24] === 0xac){
+      return "pubkeyhash";
+    }
+    if (slen === 23 && sBuf[0] === 0xa9 && sBuf[1] === 0x14 && sBuf[22] === 0x87 ){
+      return "scripthash";
+    }
+    if (slen === 22 && sBuf[0] === 0x0 && sBuf[1] === 0x14){
+      return "witness_v0_keyhash";
+    }
+    if (slen === 34 && sBuf[0] === 0x0 && sBuf[1] === 0x20){
+      return "wwitness_v0_scripthash";
+    }
+    if ((sBuf[0] + 2) === slen && sBuf[0]==33  && (sBuf[1]  === 0x2 || sBuf[1] === 0x03) && sBuf[slen-1] === 0xac ){
+      return "pubkey";
+    }
+    if ((sBuf[0] + 2) === slen && sBuf[0]==65  && sBuf[1]  === 0x4 && sBuf[slen-1] === 0xac ){
+      return "pubkey";
+    }
+
+    if (sBuf[0] === 0x6a){
+      return "nulldata";
+    }
+
+    return "unknown";
+  }
+
 
   public getDataLength(v: ApiCoin): string {
     return (v.script.toString().length/2).toString();

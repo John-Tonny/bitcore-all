@@ -5,17 +5,20 @@ module.exports = {
   COINS: {
     ETH: 'eth',
     VCL: 'vcl',
+    TRX:  'trx',
     USDC: 'usdc',
     PAX: 'pax',
     GUSD: 'gusd',
-    BUSD: 'busd'
+    BUSD: 'busd',
+    EVCL: 'evcl'
   },
 
   ERC20: {
     USDC: 'usdc',
     PAX: 'pax',
     GUSD: 'gusd',
-    BUSD: 'busd'
+    BUSD: 'busd',
+    EVCL: 'evcl'
   },
 
   UTXO_COINS: {

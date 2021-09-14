@@ -16,6 +16,7 @@ const Bitcore = {
   btc: require('bitcore-lib'),
   bch: require('bitcore-lib-cash'),
   eth: require('bitcore-lib'),
+  trx: require('bitcore-lib'),
   vcl: require('vircle-lib'),
   xrp: require('bitcore-lib')
 };

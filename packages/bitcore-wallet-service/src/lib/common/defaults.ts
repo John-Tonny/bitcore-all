@@ -117,6 +117,13 @@ module.exports = {
         nbBlocks: 1, // 3 seconds
         defaultValue: 12
       }
+    ],
+    trx: [
+      {
+        name: 'normal',
+        nbBlocks: 1, // 3 seconds
+        defaultValue: 12
+      }
     ]
   },
 

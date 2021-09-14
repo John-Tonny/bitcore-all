@@ -22,5 +22,11 @@ export let TOKEN_OPTS = {
     symbol: 'GUSD',
     decimal: 2,
     address: '0x056fd409e1d7a124bd7017459dfea2f387b6d5cd'
+  },
+  '0x33B107BFDc16842ab8083Af0f9Db136c9C721472': {
+    name: 'VclToken',
+    symbol: 'EVCL',
+    decimal: 18,
+    address: '0x33B107BFDc16842ab8083Af0f9Db136c9C721472'
   }
 };

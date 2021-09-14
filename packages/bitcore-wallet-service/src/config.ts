@@ -51,7 +51,7 @@ module.exports = {
     },
     eth: {
       livenet: {
-	url: 'https://api-eth.bitcore.io'
+	url: 'http://localhost:3000'
       },
       testnet: {
 	url: 'http://localhost:3000'
@@ -73,7 +73,15 @@ module.exports = {
       testnet: {
         url: 'http://localhost:3000'
       }
-    },    
+    },
+    trx: {
+      livenet: {
+        url: 'http://localhost:3000'
+      } ,
+      testnet: {
+        url: 'http://localhost:3000'
+      }
+    },
     socketApiKey: 'L2mPTvucM9CNvUU6MaJwUpYiLEDN9TLa3g3Fv4Fu8CnZob4ADZdJ'
   },
   pushNotificationsOpts: {

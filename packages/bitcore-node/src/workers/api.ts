@@ -14,7 +14,7 @@ const services: Array<any> = [];
 
 export const ClusteredApiWorker = async () => {
   process.on('unhandledRejection', error => {
-    console.error('Unhandled Rejection at:', error.stack || error);
+    console.error('Unhandled Rejection api at:', error.stack || error);
     stop();
   });
   process.on('SIGTERM', stop);

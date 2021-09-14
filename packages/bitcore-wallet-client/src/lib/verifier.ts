@@ -2,10 +2,19 @@ import * as _ from 'lodash';
 import { Constants, Utils } from './common';
 var $ = require('preconditions').singleton();
 
-import { BitcoreLib, BitcoreLibCash } from 'crypto-wallet-core';
+import * as CWC from 'crypto-wallet-core';
+import {CLIENT_RENEG_LIMIT} from 'tls';
 
-var Bitcore = BitcoreLib;
-var BCHAddress = BitcoreLibCash.Address;
+var Bitcore_ = {
+  btc: CWC.BitcoreLib,
+  bch: CWC.BitcoreLibCash,
+  eth: CWC.BitcoreLib,
+  xrp: CWC.BitcoreLib,
+  vcl: CWC.VircleLib,
+  trx: CWC.BitcoreLib
+};
+
+var BCHAddress = CWC.BitcoreLibCash.Address;
 
 var log = require('./log');
 
@@ -45,7 +54,7 @@ export class Verifier {
    */
   static checkCopayers(credentials, copayers) {
     $.checkState(credentials.walletPrivKey);
-    var walletPubKey = Bitcore.PrivateKey.fromString(credentials.walletPrivKey)
+    var walletPubKey = Bitcore_[credentials.coin].PrivateKey.fromString(credentials.walletPrivKey)
       .toPublicKey()
       .toString();
 
@@ -76,7 +85,7 @@ export class Verifier {
         error = true;
       } else {
         var hash = Utils.getCopayerHash(copayer.encryptedName || copayer.name, copayer.xPubKey, copayer.requestPubKey);
-        if (!Utils.verifyMessage(hash, copayer.signature, walletPubKey)) {
+        if (!Utils.verifyMessage(hash, copayer.signature, walletPubKey, credentials.coin)) {
           log.error('Invalid signatures in server response');
           error = true;
         }
@@ -148,7 +157,7 @@ export class Verifier {
     // If the txp using a selfsigned pub key?
     if (txp.proposalSignaturePubKey) {
       // Verify it...
-      if (!Utils.verifyRequestPubKey(txp.proposalSignaturePubKey, txp.proposalSignaturePubKeySig, creatorKeys.xPubKey))
+      if (!Utils.verifyRequestPubKey(txp.proposalSignaturePubKey, txp.proposalSignaturePubKeySig, creatorKeys.xPubKey, txp.coin))
         return false;
 
       creatorSigningPubKey = txp.proposalSignaturePubKey;
@@ -162,8 +171,8 @@ export class Verifier {
       var t = Utils.buildTx(txp);
       // john
       if (txp.coin == 'vcl') {
-        hash = t.uncheckedSerialize1();      
-      } else {	
+        hash = t.uncheckedSerialize1();
+      } else {
         hash = t.uncheckedSerialize();
       }
     } else {
@@ -171,7 +180,7 @@ export class Verifier {
     }
 
     log.debug('Regenerating & verifying tx proposal hash -> Hash: ', hash, ' Signature: ', txp.proposalSignature);
-    if (!Utils.verifyMessage(hash, txp.proposalSignature, creatorSigningPubKey)) return false;
+    if (!Utils.verifyMessage(hash, txp.proposalSignature, creatorSigningPubKey, txp.coin)) return false;
 
     if (Constants.UTXO_COINS.includes(txp.coin) && !this.checkAddress(credentials, txp.changeAddress)) return false;
 

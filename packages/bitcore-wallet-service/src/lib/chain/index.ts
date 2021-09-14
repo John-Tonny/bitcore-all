@@ -3,6 +3,7 @@ import { WalletService } from '../server';
 import { BchChain } from './bch';
 import { BtcChain } from './btc';
 import { EthChain } from './eth';
+import { TrxChain } from './trx';
 import { VclChain } from './vcl';
 import { XrpChain } from './xrp';
 
@@ -62,7 +63,8 @@ const chain: { [chain: string]: IChain } = {
   BCH: new BchChain(),
   ETH: new EthChain(),
   VCL: new VclChain(),
-  XRP: new XrpChain()
+  XRP: new XrpChain(),
+  TRX: new TrxChain()
 };
 
 class ChainProxy {

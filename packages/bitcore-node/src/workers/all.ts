@@ -4,8 +4,8 @@ import { Modules } from '../modules';
 import { Api } from '../services/api';
 import { Event } from '../services/event';
 // import { Masternode } from '../services/masternode';
-import { P2P } from '../services/p2p';
-import { Storage } from '../services/storage';
+import {P2P} from '../services/p2p';
+import {Storage} from '../services/storage';
 import { Worker } from '../services/worker';
 import parseArgv from '../utils/parseArgv';
 import '../utils/polyfills';
@@ -15,7 +15,9 @@ const services: Array<any> = [];
 
 export const FullClusteredWorker = async () => {
   process.on('unhandledRejection', error => {
-    console.error('Unhandled Rejection at:', error.stack || error);
+    console.error('Unhandled Rejection all at:', error.stack || error);
+    // john
+    // pre_stop(true);
     stop();
   });
   process.on('SIGTERM', stop);
@@ -41,6 +43,21 @@ export const FullClusteredWorker = async () => {
     await service.start();
   }
 };
+
+/*
+const pre_stop = async(status: boolean) => {
+  if (status) {
+    for (const service of services.reverse()) {
+      if ( service instanceof P2pManager) {
+        await service.stop();
+        await service.start();
+        return;
+      }
+    }
+  }
+  stop();
+}
+*/
 
 const stop = async () => {
   console.log(`Shutting down ${process.pid}`);

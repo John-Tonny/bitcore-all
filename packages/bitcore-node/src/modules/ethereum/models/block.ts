@@ -40,7 +40,7 @@ export class EthBlockModel extends BaseBlock<IEthBlock> {
     reorg = reorg || (await this.handleReorg({ block, chain, network }));
 
     if (reorg) {
-      return Promise.reject('reorg');
+      return Promise.reject('ethereum reorg');
     }
     return this.processBlock(params);
   }

@@ -17,11 +17,14 @@ const Bitcore_ = {
   bch: BitcoreLibCash,
   eth: Bitcore,
   xrp: Bitcore,
-  vcl: VircleLib  
+  vcl: VircleLib,
+  trx: Bitcore
 };
+/*
 const PrivateKey = Bitcore.PrivateKey;
 const PublicKey = Bitcore.PublicKey;
 const crypto = Bitcore.crypto;
+*/
 
 let SJCL = {};
 
@@ -93,41 +96,45 @@ export class Utils {
   static hashMessage(text) {
     $.checkArgument(text);
     var buf = Buffer.from(text);
-    var ret = crypto.Hash.sha256sha256(buf);
+    console.log("text:", text);
+    console.log("buf: ", buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6]);
+    var ret = Bitcore.crypto.Hash.sha256sha256(buf);
     ret = new Bitcore.encoding.BufferReader(ret).readReverse();
+    console.log("hash: ", ret);
     return ret;
   }
 
-  static signMessage(message, privKey) {
+  static signMessage(message, privKey, coin) {
     $.checkArgument(message);
-    var priv = new PrivateKey(privKey);
+    coin = coin || 'vcl';
+    var priv = new Bitcore_[coin].PrivateKey(privKey);
     const flattenedMessage = _.isArray(message) ? _.join(message) : message;
     var hash = this.hashMessage(flattenedMessage);
-    return crypto.ECDSA.sign(hash, priv, 'little').toString();
+    return Bitcore_[coin].crypto.ECDSA.sign(hash, priv, 'little').toString();
   }
 
-  static verifyMessage(message: Array<string> | string, signature, pubKey) {
+  static verifyMessage(message: Array<string> | string, signature, pubKey, coin) {
     $.checkArgument(message);
     $.checkArgument(pubKey);
 
     if (!signature) return false;
 
-    var pub = new PublicKey(pubKey);
+    var pub = new Bitcore_[coin].PublicKey(pubKey);
     const flattenedMessage = _.isArray(message) ? _.join(message) : message;
     const hash = this.hashMessage(flattenedMessage);
     try {
-      var sig = new crypto.Signature.fromString(signature);
-      return crypto.ECDSA.verify(hash, sig, pub, 'little');
+      var sig = new Bitcore_[coin].crypto.Signature.fromString(signature);
+      return Bitcore_[coin].crypto.ECDSA.verify(hash, sig, pub, 'little');
     } catch (e) {
       return false;
     }
   }
 
-  static privateKeyToAESKey(privKey) {
+  static privateKeyToAESKey(privKey, coin) {
     $.checkArgument(privKey && _.isString(privKey));
-    $.checkArgument(Bitcore.PrivateKey.isValid(privKey), 'The private key received is invalid');
-    var pk = Bitcore.PrivateKey.fromString(privKey);
-    return Bitcore.crypto.Hash.sha256(pk.toBuffer())
+    $.checkArgument(Bitcore_[coin].PrivateKey.isValid(privKey), 'The private key received is invalid');
+    var pk = Bitcore_[coin].PrivateKey.fromString(privKey);
+    return Bitcore_[coin].crypto.Hash.sha256(pk.toBuffer())
       .slice(0, 16)
       .toString('base64');
   }
@@ -215,14 +222,16 @@ export class Utils {
     return sjcl.codec.hex.fromBits(hash);
   }
 
-  static signRequestPubKey(requestPubKey, xPrivKey) {
-    var priv = new Bitcore.HDPrivateKey(xPrivKey).deriveChild(Constants.PATHS.REQUEST_KEY_AUTH).privateKey;
-    return this.signMessage(requestPubKey, priv);
+  static signRequestPubKey(requestPubKey, xPrivKey, coin) {
+    coin = coin || 'vcl';
+    var priv = new Bitcore_[coin].HDPrivateKey(xPrivKey).deriveChild(Constants.PATHS.REQUEST_KEY_AUTH).privateKey;
+    return this.signMessage(requestPubKey, priv, coin);
   }
 
-  static verifyRequestPubKey(requestPubKey, signature, xPubKey) {
-    var pub = new Bitcore.HDPublicKey(xPubKey).deriveChild(Constants.PATHS.REQUEST_KEY_AUTH).publicKey;
-    return this.verifyMessage(requestPubKey, signature, pub.toString());
+  static verifyRequestPubKey(requestPubKey, signature, xPubKey, coin) {
+    coin = coin || 'vcl';
+    var pub = new Bitcore_[coin].HDPublicKey(xPubKey).deriveChild(Constants.PATHS.REQUEST_KEY_AUTH).publicKey;
+    return this.verifyMessage(requestPubKey, signature, pub.toString(), coin);
   }
 
   static formatAmount(satoshis, unit, opts?) {
@@ -386,9 +395,9 @@ export class Utils {
     }
   }
 
-  static isPrivateKey(privKey) {
+  static isPrivateKey(privKey, coin) {
     try {
-      var privkey = new PrivateKey(privKey);
+      var privkey = new Bitcore_[coin].PrivateKey(privKey);
       return true;
     } catch (e) {
       return false;

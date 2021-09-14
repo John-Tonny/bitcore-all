@@ -26,6 +26,10 @@ const PROVIDERS = {
     vcl: {
       livenet: 'https://bws.vircle.xyz',
       testnet: 'https://bws.vircle.xyz'
+    },
+    trx: {
+      livenet: 'https://bws.vircle.xyz',
+      testnet: 'https://bws.vircle.xyz'
     }
   }
 };

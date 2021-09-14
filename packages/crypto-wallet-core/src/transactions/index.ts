@@ -3,6 +3,7 @@ import { BTCTxProvider } from './btc';
 import { ERC20TxProvider } from './erc20';
 import { ETHTxProvider } from './eth';
 import { ETHMULTISIGTxProvider } from './eth-multisig';
+import { TRXTxProvider } from './trx';
 import { XRPTxProvider } from './xrp';
 import { VCLTxProvider } from './vcl';
 
@@ -13,7 +14,8 @@ const providers = {
   ERC20: new ERC20TxProvider(),
   ETHMULTISIG: new ETHMULTISIGTxProvider(),
   XRP: new XRPTxProvider(),
-  VCL: new VCLTxProvider()
+  VCL: new VCLTxProvider(),
+  TRX: new TRXTxProvider()
 };
 
 export class TransactionsProxy {

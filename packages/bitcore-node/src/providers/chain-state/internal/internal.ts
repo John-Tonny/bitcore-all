@@ -19,8 +19,11 @@ import { Config } from '../../../services/config';
 import { Storage } from '../../../services/storage';
 import { CoinJSON, SpentHeightIndicators } from '../../../types/Coin';
 import {
-  BroadcastMasternodeParams,
   // john
+  BroadcastMasternodeParams,
+  AssetAddressParams,
+  AssetTxParams,
+
   BroadcastTransactionParams,
   CreateWalletParams,
   DailyTransactionsParams,
@@ -489,6 +492,22 @@ export class InternalStateProvider implements IChainStateService {
     const { chain, network, utxo } = params;
     return await this.getRPC(chain, network).getMasternodeStatus(utxo);
   }
+
+  async getAssetAllocationBalance(params: AssetAddressParams) {
+    const { chain, network, address } = params;
+    return await this.getRPC(chain, network).getAssetAllocationBalance(address);
+  }
+
+  async syscoinBurnToAssetAllocation(params: AssetTxParams) {
+    const { chain, network, address, amount } = params;
+    return await this.getRPC(chain, network).syscoinBurnToAssetAllocation(address, amount);
+  }
+
+  async assetAllocationBurn(params: AssetTxParams) {
+    const { chain, network, address, amount } = params;
+    return await this.getRPC(chain, network).assetAllocationBurn(address, amount);
+  }
+
 
   async getCoinsForTx({ chain, network, txid }: { chain: string; network: string; txid: string }) {
     const tx = await TransactionStorage.collection.countDocuments({ txid });

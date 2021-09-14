@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USER_PATH=/home/john
+USER_PATH=~
 MODULE_PATH=$USER_PATH/bitcore/packages
 NODE_PATH=$USER_PATH/.nvm/versions/node/v10.5.0/bin
 

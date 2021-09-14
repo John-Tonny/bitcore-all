@@ -55,6 +55,17 @@ export let UNITS = {
       minDecimals: 2
     }
   },
+  trx: {
+    toSatoshis: 1e6,
+    full: {
+      maxDecimals: 6,
+      minDecimals: 6
+    },
+    short: {
+      maxDecimals: 6,
+      minDecimals: 2
+    }
+  },
   busd: {
     toSatoshis: 1e18,
     full: {
@@ -90,6 +101,17 @@ export let UNITS = {
   },
   gusd: {
     toSatoshis: 1e2,
+    full: {
+      maxDecimals: 8,
+      minDecimals: 8
+    },
+    short: {
+      maxDecimals: 6,
+      minDecimals: 2
+    }
+  },
+  evcl: {
+    toSatoshis: 1e18,
     full: {
       maxDecimals: 8,
       minDecimals: 8

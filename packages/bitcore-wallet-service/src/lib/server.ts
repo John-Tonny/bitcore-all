@@ -46,6 +46,7 @@ const Bitcore_ = {
   btc: Bitcore,
   bch: require('bitcore-lib-cash'),
   eth: Bitcore,
+  trx: Bitcore,
   vcl: require('vircle-lib'),
   xrp: Bitcore
 };
@@ -758,7 +759,7 @@ export class WalletService {
         }
       ],
       err => {
-        if (err) return cb(err);
+        if(err) {return cb(err)};
         return cb(null, status);
       }
     );
@@ -3724,7 +3725,7 @@ export class WalletService {
           }
 
           const startBlock = cacheStatus.updatedHeight || 0;
-          logger.debug(' ########### GET HISTORY v8 startBlock/bcH]', startBlock, bcHeight); // TODO
+          logger.debug('GET HISTORY v8 startBlock/bcH]', startBlock, bcHeight); // TODO
 
           bc.getTransactions(wallet, startBlock, (err, txs) => {
             if (err) return cb(err);
@@ -4477,7 +4478,7 @@ export class WalletService {
     });
   }
 
-  // john
+  // john masternode
   getMasternodeCollateral(opts, cb) {
     opts = opts || {};
 

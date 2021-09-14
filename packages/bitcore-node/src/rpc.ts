@@ -2,6 +2,8 @@ import request = require('request');
 import { LoggifyClass } from './decorators/Loggify';
 type CallbackType = (err: any, data?: any) => any;
 
+const SYSX_ASSET_GUID = 468837148;
+
 @LoggifyClass
 export class RPC {
   constructor(private username: string, private password: string, private host: string, private port: number) {}
@@ -106,7 +108,7 @@ export class RPC {
     return this.asyncCall('estimatefee', []);
   }
 
-  // john
+  // john  masternode
   broadcastMasternode(rawTx: string) {
     return this.asyncCall<string>('masternodebroadcast', ['relay', rawTx]);
   }
@@ -118,6 +120,24 @@ export class RPC {
     }
     return ret;
   }
+
+  // john  asset
+  getAssetAllocationBalance(address: string){
+    let ret = this.asyncCall<string>('assetallocationbalance', [SYSX_ASSET_GUID, address]);
+    return ret;
+  }
+
+  syscoinBurnToAssetAllocation(address: string, amount: number){
+    let ret = this.asyncCall<string>('syscoinburntoassetallocation', [address, SYSX_ASSET_GUID, amount]);
+    return ret;
+  }
+
+  assetAllocationBurn(address: string, amount: number){
+    let ret = this.asyncCall<string>('assetallocationburn', [SYSX_ASSET_GUID, address, amount]);
+    return ret;
+  }
+
+
 }
 
 @LoggifyClass

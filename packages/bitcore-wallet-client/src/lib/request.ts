@@ -19,7 +19,7 @@ export class Request {
 
   constructor(url?, opts?) {
     this.baseUrl = url;
-
+    
     this.r = opts.r || request;
     this.supportStaffWalletId = opts.supportStaffWalletId;
 
@@ -50,9 +50,10 @@ export class Request {
   //  @param {String} url - The URL for the request
   //  @param {Object} args - The arguments in case this is a POST/PUT request
   //  @param {String} privKey - Private key to sign the request
-  static _signRequest(method, url, args, privKey) {
+  static _signRequest(method, url, args, privKey, coin) {
+    coin = coin || 'vcl';
     var message = [method.toLowerCase(), url, JSON.stringify(args)].join('|');
-    return Utils.signMessage(message, privKey);
+    return Utils.signMessage(message, privKey, coin);
   }
 
   //  Do an HTTP request
@@ -64,7 +65,7 @@ export class Request {
   //  @param {Callback} cb
   doRequest(method, url, args, useSession, cb) {
     var headers = this.getHeaders(method, url, args);
-
+    let coin = args.coin || 'vcl';
     if (this.credentials) {
       headers['x-identity'] = this.credentials.copayerId;
 
@@ -75,7 +76,7 @@ export class Request {
         var key = args._requestPrivKey || this.credentials.requestPrivKey;
         if (key) {
           delete args['_requestPrivKey'];
-          reqSignature = Request._signRequest(method, url, args, key);
+          reqSignature = Request._signRequest(method, url, args, key, coin);
         }
         headers['x-signature'] = reqSignature;
       }
@@ -117,13 +118,14 @@ export class Request {
         if (!res.status) return cb(new Errors.CONNECTION_ERROR());
 
         log.error('HTTP Error:' + res.status);
-
-        if (!res.body) return cb(new Error(res.status));
+	if (!res.body) return cb(new Error(res.status));
         return cb(Request._parseError(res.body));
       }
 
       if (res.body === '{"error":"read ECONNRESET"}') return cb(new Errors.ECONNRESET_ERROR(JSON.parse(res.body)));
-
+      console.log("########## body start ###################")
+      console.log("res:", url, res.body);
+      console.log("########## body end ###################")
       return cb(null, res.body, res.header);
     });
   }

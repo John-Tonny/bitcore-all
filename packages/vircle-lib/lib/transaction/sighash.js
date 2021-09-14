@@ -86,6 +86,8 @@ var sighash = function sighash(transaction, sighashType, inputNumber, subscript)
     .toBuffer();
   var ret = Hash.sha256sha256(buf);
   ret = new BufferReader(ret).readReverse();
+  console.log("buf:", buf.toString('hex'));
+  console.log("hash", ret.toString('hex'));
   return ret;
 };
 
@@ -107,6 +109,8 @@ function sign(transaction, privateKey, sighashType, inputIndex, subscript, signi
   var sig;
   if(signingMethod === 'ecdsa') {
     var hashbuf = sighash(transaction, sighashType, inputIndex, subscript);
+    console.log("hashbuf: ", hashbuf.toString('hex'));
+    console.log("privkkkk: ", privateKey.toString('hex'));
     sig = ECDSA.sign(hashbuf, privateKey, 'little').set({
     nhashtype: sighashType
   });

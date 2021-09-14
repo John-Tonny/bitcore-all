@@ -2,7 +2,64 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6c0a651-8669-4f04-a85c-58e0cac558cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../monit/virclesd.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-lib-cash/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-lib-cash/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-lib/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-lib/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-mnemonic/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-mnemonic/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/modules/ethereum/api/csp.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/modules/ethereum/api/csp.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/modules/ethereum/p2p/p2p.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/modules/ethereum/p2p/p2p.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/modules/vircle/p2p.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/modules/vircle/p2p.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/providers/chain-state/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/providers/chain-state/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/providers/chain-state/internal/internal.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/providers/chain-state/internal/internal.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/rpc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/rpc.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/types/namespaces/ChainStateProvider.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/types/namespaces/ChainStateProvider.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/workers/all.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/workers/all.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/workers/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/workers/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/workers/p2p.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/workers/p2p.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/src/workers/pruning.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/src/workers/pruning.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/stop.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-node/stop.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-node/test-mongodb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-p2p-cash/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-p2p-cash/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-p2p/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-p2p/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/common/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/common/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/common/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/common/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/credentials.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/credentials.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/key.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/key.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/verifier.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-client/src/lib/verifier.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/blockchainexplorers/v8/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/blockchainexplorers/v8/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/blockchainmonitor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/blockchainmonitor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/common/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/common/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/expressapp.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/expressapp.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/model/address.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/model/address.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/pushnotificationsservice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/pushnotificationsservice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/src/lib/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start_bcmonitor.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start_bcmonitor.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start_bws.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start_bws.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start_emailservice.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start_emailservice.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start_fiatrateservice.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start_fiatrateservice.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start_masternodeservice.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start_masternodeservice.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start_messagebroker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start_messagebroker.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/start_pushnotificationsservice.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/start_pushnotificationsservice.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bitcore-wallet-service/stop_bws.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../bitcore-wallet-service/stop_bws.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../crypto-wallet-core/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto-wallet-core/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../crypto-wallet-core/src/constants/tokens.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto-wallet-core/src/constants/tokens.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../crypto-wallet-core/src/constants/units.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto-wallet-core/src/constants/units.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../crypto-wallet-core/src/transactions/eth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto-wallet-core/src/transactions/eth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../insight/src/components/transaction-details/transaction-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/../insight/src/components/transaction-details/transaction-details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../insight/src/components/transaction-details/transaction-details.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../insight/src/components/transaction-details/transaction-details.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../insight/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../insight/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../insight/stop.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../insight/stop.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/networks.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/networks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/transaction/transaction.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/transaction/transaction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vircle-p2p/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../vircle-p2p/package-lock.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,11 +96,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/hdprivatekey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="422" column="30" selection-start-line="422" selection-start-column="22" selection-end-line="422" selection-end-column="30" />
+            <state relative-caret-position="303">
+              <caret line="187" column="9" selection-start-line="187" selection-end-line="187" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/address.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-106">
+              <caret line="233" column="50" selection-start-line="233" selection-start-column="30" selection-end-line="233" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -51,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/hdpublickey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="386" selection-start-line="386" selection-end-line="386" />
+            <state relative-caret-position="3270">
+              <caret line="218" column="2" selection-start-line="218" selection-start-column="2" selection-end-line="218" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -60,8 +126,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/networks.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2370">
-              <caret line="158" column="21" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
+            <state relative-caret-position="135">
+              <caret line="9" column="65" selection-start-line="9" selection-start-column="65" selection-end-line="9" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -70,14 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>isNotWitnesses</find>
-      <find>isWitnessScriptHashOut</find>
-      <find>tostring</find>
-      <find>fromString</find>
-      <find>fromBuffer</find>
-      <find>hmac</find>
-      <find>sha256</find>
-      <find>networkMaps</find>
       <find>_buildFromObject</find>
       <find>toString</find>
       <find>buildFromObj</find>
@@ -100,7 +158,18 @@
       <find>useSegwit</find>
       <find>_buildFromPrivate</find>
       <find>zprv</find>
+      <find>HDPrivateKey</find>
+      <find>toPublicKey</find>
+      <find>fromPrivateKey</find>
+      <find>toPublic</find>
+      <find>createMultisig</find>
+      <find>toAddress</find>
+      <find>_classifyArguments</find>
+      <find>_transformHash</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/lib</dir>
     </dirStrings>
@@ -134,6 +203,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -150,7 +220,19 @@
               <item name="vircle-lib" type="b2602c69:ProjectViewProjectNode" />
               <item name="vircle-lib" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="block" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vircle-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vircle-lib" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="crypto" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vircle-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vircle-lib" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="transaction" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vircle-lib" type="b2602c69:ProjectViewProjectNode" />
@@ -162,7 +244,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -208,17 +289,20 @@
       <workItem from="1595811559350" duration="2899000" />
       <workItem from="1595821016575" duration="3265000" />
       <workItem from="1595842459457" duration="92000" />
+      <workItem from="1604736049930" duration="2042000" />
+      <workItem from="1604910751213" duration="561000" />
+      <workItem from="1605064065107" duration="1009000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50620000" />
+    <option name="totallyTimeSpent" value="54232000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="8" y="31" width="1536" height="801" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30254352" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3145917" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Gulp" order="2" side_tool="true" />
       <window_info id="npm" order="3" side_tool="true" />
@@ -318,13 +402,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/address.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1141">
-          <caret line="22" column="70" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/transaction/signature.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -391,24 +468,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/networks.js">
+    <entry file="file://$PROJECT_DIR$/lib/hdpublickey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2370">
-          <caret line="158" column="21" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
+        <state relative-caret-position="3270">
+          <caret line="218" column="2" selection-start-line="218" selection-start-column="2" selection-end-line="218" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/hdpublickey.js">
+    <entry file="file://$PROJECT_DIR$/lib/networks.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="386" selection-start-line="386" selection-end-line="386" />
+        <state relative-caret-position="135">
+          <caret line="9" column="65" selection-start-line="9" selection-start-column="65" selection-end-line="9" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/hdprivatekey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="422" column="30" selection-start-line="422" selection-start-column="22" selection-end-line="422" selection-end-column="30" />
+        <state relative-caret-position="303">
+          <caret line="187" column="9" selection-start-line="187" selection-end-line="187" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/address.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-106">
+          <caret line="233" column="50" selection-start-line="233" selection-start-column="30" selection-end-line="233" selection-end-column="50" />
         </state>
       </provider>
     </entry>

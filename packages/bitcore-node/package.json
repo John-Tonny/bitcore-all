@@ -120,6 +120,7 @@
     "socket.io-client": "2.1.1",
     "source-map-support": "^0.5.13",
     "through2": "2.0.3",
+    "tronweb": "^3.1.0",
     "underscore": "1.8.3",
     "vircle-lib": "^8.22.2",
     "vircle-p2p": "^8.22.2",

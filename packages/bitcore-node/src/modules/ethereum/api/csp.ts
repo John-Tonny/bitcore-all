@@ -6,7 +6,8 @@ import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { Transaction } from 'web3/eth/types';
 import Config from '../../../config';
-import logger from '../../../logger';
+import logger  from '../../../logger';
+import { timestamp } from '../../../logger';
 import { MongoBound } from '../../../models/base';
 import { ITransaction } from '../../../models/baseTransaction';
 import { CacheStorage } from '../../../models/cache';
@@ -56,10 +57,28 @@ interface ERC20Transfer
 export class ETHStateProvider extends InternalStateProvider implements IChainStateService {
   config: any;
   static rpcs = {} as { [network: string]: { rpc: CryptoRpc; web3: Web3 } };
+  public confIndex: number;
+  public confIndexMax: number;
+
 
   constructor(public chain: string = 'ETH') {
     super(chain);
     this.config = Config.chains[this.chain];
+    this.confIndex = 0;
+    this.confIndexMax = 0;
+  }
+
+  changeProvider(network: string) {
+    this.confIndexMax = this.config[network].provider.length;
+    if (this.confIndex <= 0) {
+      this.confIndex = 0;
+    }else {
+      if (this.confIndex < this.confIndexMax-1 ) {
+        this.confIndex += 1;
+      }else {
+        this.confIndex = 0;
+      }
+    }
   }
 
   async getWeb3(network: string): Promise<{ rpc: CryptoRpc; web3: Web3 }> {
@@ -72,7 +91,7 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
     }
     if (!ETHStateProvider.rpcs[network]) {
       console.log('making a new connection');
-      const rpcConfig = { ...this.config[network].provider, chain: this.chain, currencyConfig: {} };
+      const rpcConfig = { ...this.config[network].provider[this.confIndex], chain: this.chain, currencyConfig: {} };
       const rpc = new CryptoRpc(rpcConfig, {}).get(this.chain);
       ETHStateProvider.rpcs[network] = { rpc, web3: rpc.web3 };
     }
@@ -488,32 +507,27 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
           throw err;
         }
       }
-	
-      /*
-      var t1 = new Date().getTime();
-      console.log("####### start update wallet ###########");
+
+      logger.info(`${timestamp()} | 'start update wallet'`);
       await EthTransactionStorage.collection.updateMany(
         {
           $or: [
             { chain, network, from: { $in: addressBatch } },
             { chain, network, to: { $in: addressBatch } },
-            { chain, network, 'internal.action.to': { $in: addressBatch } },
-            { chain, network, 'abiType.params.0.value': { $in: addressBatch.map(address => address.toLowerCase()) } }
+            // { chain, network, 'internal.action.to': { $in: addressBatch } },
+            // { chain, network, 'abiType.params.0.value': { $in: addressBatch.map(address => address.toLowerCase()) } }
           ]
         },
         { $addToSet: { wallets: params.wallet._id } }
       );
 
-      var t2 = new Date().getTime();
-      console.log("####### stop update wallet ###########", t2 - t1);
+      logger.info(`${timestamp()} | 'stop update wallet'`);
 
       await WalletAddressStorage.collection.updateMany(
         { chain, network, address: { $in: addressBatch }, wallet: params.wallet._id },
         { $set: { processed: true } }
       );
-      var t3 = new Date().getTime();
-      console.log("####### end update wallet ###########", t3 - t2);
-      */
+      logger.info(`${timestamp()} | 'end update wallet'`);
     }
   }
 

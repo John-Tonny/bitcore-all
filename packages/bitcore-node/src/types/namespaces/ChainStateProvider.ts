@@ -136,7 +136,7 @@ export type isValidParams = ChainNetwork & {
   input: string;
 };
 
-// john
+// john  masternode
 export type BroadcastMasternodeParams = ChainNetwork & {
   rawTx: string;
 };
@@ -144,6 +144,17 @@ export type BroadcastMasternodeParams = ChainNetwork & {
 export type StreamMasternodeStatusParams = ChainNetwork & {
   utxo: string;
 };
+
+// john asset
+export type AssetAddressParams = ChainNetwork & {
+  address: string;
+};
+
+export type AssetTxParams = ChainNetwork & {
+  address: string;
+  amount: number;
+};
+
 
 export interface GetCoinsForTxParams {
   chain: string;
@@ -189,9 +200,15 @@ export interface IChainStateService {
   getLocatorHashes(params): Promise<any>;
   isValid(params: isValidParams): { isValid: boolean; type: string };
 
-  // john
+  // john  masternode
   broadcastMasternode(params: BroadcastMasternodeParams): Promise<any>;
   getMasternodeStatus(params: StreamMasternodeStatusParams): Promise<any | undefined>;
+
+  //asset
+  getAssetAllocationBalance(params: AssetAddressParams): Promise<any | undefined>;
+  syscoinBurnToAssetAllocation(params: AssetTxParams): Promise<any | undefined>;
+  assetAllocationBurn(params: AssetTxParams): Promise<any | undefined>;
+
 }
 
 export interface ChainStateServices {

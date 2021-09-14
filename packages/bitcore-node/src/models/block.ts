@@ -37,7 +37,7 @@ export class BitcoinBlock extends BaseBlock<IBtcBlock> {
     const reorg = await this.handleReorg({ header, chain, network });
 
     if (reorg) {
-      return Promise.reject('reorg');
+      return Promise.reject('main reorg');
     }
     return this.processBlock(params);
   }

@@ -305,6 +305,9 @@ export class BitcoinP2PWorker extends BaseP2PWorker<IBtcBlock> {
       logger.info(`${timestamp()} | Syncing ${headers.length} blocks | Chain: ${chain} | Network: ${network}`);
       for (const header of headers) {
         try {
+          if (currentHeight == 3411 ){
+            console.log("test");
+          }
           const block = await this.getBlock(header.hash);
           await this.processBlock(block);
           currentHeight++;
